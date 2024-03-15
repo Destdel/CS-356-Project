@@ -14,19 +14,17 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import application.tableOfContents;
-import summaries.Chapter4Summary;
 import summaries.Chapter5Summary;
-import quizzes.Chapter4Quiz;
 import quizzes.Chapter5Quiz;
 
 /**
- * Chapter 4 Textbook for the Learning Java Application.
+ * Chapter 5 Textbook for the Learning Java Application.
  * Functions
  * 
- * @author Destiny Deleon
+ * @author Anthony Ephault
  *
  */
-public class Chapter4Textbook extends JPanel 
+public class Chapter5Textbook extends JPanel 
 {
     private CardLayout cardLayout;
 
@@ -69,13 +67,13 @@ public class Chapter4Textbook extends JPanel
 
     /**
 	 * 
-	 * Chapter4Textbook() - Constructor
+	 * Chapter5Textbook() - Constructor
 	 * 
-	 * Used to create the chapter 4 (functions) textbook which the user is able to flip through and read.
+	 * Used to create the chapter 5 (classes) textbook which the user is able to flip through and read.
 	 * The user is also able to access the summary, quiz, and table of contents for this chapter as well.
 	 * 
 	 **/
-    public Chapter4Textbook() 
+    public Chapter5Textbook() 
     {
     	// declare variables basic screen variables
         Color lightBlue = new Color(173, 216, 230);        // color for the buttons
@@ -92,27 +90,40 @@ public class Chapter4Textbook extends JPanel
         // print screen information
         // page number 
         // title text
-        lblTitle = new JLabel("Functions");
+        lblTitle = new JLabel("Classes");
         lblTitle.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
-        lblTitle.setBounds(50, 50, 400, 70);
+        lblTitle.setBounds(50, 50, 300, 70);
         // page number text
         lblPage1Number = new JLabel("Page 1");
         lblPage1Number.setHorizontalAlignment(SwingConstants.CENTER); 
         lblPage1Number.setBounds(280, 725, 200, 40);
         // page 1 subtitle
-        lblSubtitlePage1 = new JLabel("What is a Function?");
+        lblSubtitlePage1 = new JLabel("5.1 Introduction to Classes");
         lblSubtitlePage1.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblSubtitlePage1.setBounds(50, 225, 400, 45);
-
+        lblSubtitlePage1.setBounds(50, 150, 500, 40);
         // page 1 text
-        lblTextPage1 = new JLabel("<html>A function is referred to as a method. A method is a set of code that"
-        		+ " is referred to by name and can be called (invoked) at any point in a program simply by utilizing the "
-        		+ "method's name. Methods are essential for organizing code into manageable and reusable blocks, making "
-        		+ "programs more modular and easier to maintain. Functions allow you to break down a program into smaller, "
-        		+ "more manageable pieces. Each function can be responsible for a specific task or operation, making the "
-        		+ "overall codebase easier to understand, maintain, and debug.</html>");
-        lblTextPage1.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        lblTextPage1.setBounds(50, 275, 700, 150);
+        lblTextPage1 = new JLabel("<html>In Java, classes are the fundamental building blocks of object-oriented programming. They serve as templates for creating objects, which are instances of a class. Each class encapsulates data (attributes) and behavior (methods) related to a particular concept or entity."
+        		+ "Class Declaration: A class is declared using the class keyword followed by the class name and a code block that contains the class's members."
+        		+ "\n<br>"
+        		+ "public class MyClass {<br>"
+        		+ "    // Class members (fields, constructors, methods)<br>"
+        		+ "}<br>"
+        		+ "Attributes (Fields): Attributes represent the state of an object and are defined as variables within a class."
+        		+ "\n<br>"
+        		+ "public class Person {<br>"
+        		+ "    String name;<br>"
+        		+ "    int age;<br>"
+        		+ "}<br>"
+        		+ "Methods: Methods define the behavior of an object and are declared within a class. They can perform operations, manipulate data, and interact with other objects.<br>"
+        		+ "\n"
+        		+ "public class Person {<br>"
+        		+ "    public void displayInfo() {<br>"
+        		+ "        System.out.println(\"Name: \" + name);<br>"
+        		+ "        System.out.println(\"Age: \" + age);<br>"
+        		+ "    }<br>"
+        		+ "}<html>");
+        lblTextPage1.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
+        lblTextPage1.setBounds(50, 190, 700, 475);
         
         // button to go to TOC
         btnToTOC = new JButton("Table of Contents");
@@ -123,7 +134,7 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                  try {
                      // close current frame
-                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                      currentFrame.dispose();
                      // create the table of contents frame
                      tocFrame = new JFrame("Table of Contents");
@@ -140,7 +151,7 @@ public class Chapter4Textbook extends JPanel
              }
         });
         // button to go to chp quiz slide
-        btnQuiz = new JButton("Function Chapter Quiz");
+        btnQuiz = new JButton("Classes Chapter Quiz");
         btnQuiz.setBounds(40, 650, 200, 60);
         btnQuiz.setBackground(lightBlue);
         btnQuiz.addActionListener(new ActionListener() {
@@ -148,11 +159,11 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                     currentFrame.dispose();
                     // create the chapter quiz frame
-                    quizFrame = new JFrame("Chapter 4 Quiz");
-                    Chapter4Quiz quizPanel = new Chapter4Quiz();
+                    quizFrame = new JFrame("Chapter 5 Quiz");
+                    Chapter5Quiz quizPanel = new Chapter5Quiz();
                     quizFrame.getContentPane().add(quizPanel);
                     quizFrame.setSize(800, 800);
                     quizFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -171,11 +182,11 @@ public class Chapter4Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the blank screen when "Next Page" is clicked
-                cardLayout.show(Chapter4Textbook.this, "secondPage");
+                cardLayout.show(Chapter5Textbook.this, "secondPage");
             }
         });
         // button to go to chp summary slide
-        btnSummary = new JButton("Functions Chapter Summary");
+        btnSummary = new JButton("Classes Chapter Summary");
         btnSummary.setBounds(540, 650, 200, 60);
         btnSummary.setBackground(lightBlue);
         btnSummary.addActionListener(new ActionListener() {
@@ -183,12 +194,12 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
-                    summaryFrame = new JFrame("Chapter 4 Summary");
+                    summaryFrame = new JFrame("Chapter 5 Summary");
                     // add the chapter summary panel
-                    Chapter4Summary summaryPanel = new Chapter4Summary();
+                    Chapter5Summary summaryPanel = new Chapter5Summary();
                     summaryFrame.add(summaryPanel);
                     // set size and make visible
                     summaryFrame.setSize(800, 800);
@@ -216,28 +227,44 @@ public class Chapter4Textbook extends JPanel
         secondPage.setBackground(new Color(200, 230, 200));
         secondPage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         // title for the second page
-        lblTitlePage2 = new JLabel("Functions");
+        lblTitlePage2 = new JLabel("Classes");
         lblTitlePage2.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
         lblTitlePage2.setBounds(50, 50, 400, 70);
         // page number text
         lblPage2Number = new JLabel("Page 2");
         lblPage2Number.setHorizontalAlignment(SwingConstants.CENTER); 
         lblPage2Number.setBounds(280, 725, 200, 40);
-        // page 2 subtitle
-        lblSubtitlePage2 = new JLabel("What is a Parameter?");
+        lblSubtitlePage2 = new JLabel("5.2 Constructors and Instantiation");
         lblSubtitlePage2.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblSubtitlePage2.setBounds(50, 225, 700, 45);
+        lblSubtitlePage2.setBounds(50, 150, 600, 40);
         // page 2 text
-        lblTextPage2 = new JLabel("<html> A function parameter (also known as a "
-        		+ "formal parameter or parameter) is a variable that is defined "
-        		+ "as part of a function's declaration and used to pass values into "
-        		+ "the function when it is called. These parameters allow functions "
-        		+ "to receive input data and operate on it within the function's body. "
-        		+ "In Java, function parameters are specified within the parentheses "
-        		+ "following the function name. Each parameter consists of a data "
-        		+ "type followed by a parameter name. Multiple parameters are separated by commas. </html>");
-        lblTextPage2.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        lblTextPage2.setBounds(50, 275, 700, 150);
+        lblTextPage2 = new JLabel("<html>Constructors are special methods used for initializing objects. They have the same name as the class and do not have a return type. In Java, when an object is created using the new keyword, a constructor is invoked to initialize the object."
+        		+ "Default Constructor: If a class does not explicitly define any constructors, Java provides a default constructor with no arguments, which initializes the object's attributes to their default values."
+        		+ "\n<br>"
+        		+ "public class Person {<br>"
+        		+ "    // Default constructor<br>"
+        		+ "    public Person() {<br>"
+        		+ "        // Initialization code<br>"
+        		+ "    }<br>"
+        		+ "}<br>"
+        		+ "Parameterized Constructor: Constructors can also accept parameters, allowing for custom initialization of object attributes."
+        		+ "\n<br>"
+        		+ "public class Person {<br>"
+        		+ "    String name;<br>"
+        		+ "    int age;"
+        		+ "    \n<br>"
+        		+ "    // Parameterized constructor<br>"
+        		+ "    public Person(String name, int age) {<br>"
+        		+ "        this.name = name;<br>"
+        		+ "        this.age = age;<br>"
+        		+ "    }<br>"
+        		+ "}<br>"
+        		+ "Object Instantiation: Objects are created using the new keyword followed by a call to a constructor."
+        		+ "\n<br>"
+        		+ "Person person1 = new Person(); // Using default constructor<br>"
+        		+ "Person person2 = new Person(\"John\", 30); // Using parameterized constructor</html>");
+        lblTextPage2.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+        lblTextPage2.setBounds(50, 185, 700, 475);
         // button to go to TOC on the second page
         btnToTOCPage2 = new JButton("Table of Contents");
         btnToTOCPage2.setBounds(500, 50, 200, 70);
@@ -247,7 +274,7 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                     currentFrame.dispose();
                     // create the table of contents frame
                     tocFrame = new JFrame("Table of Contents");
@@ -264,7 +291,7 @@ public class Chapter4Textbook extends JPanel
             }
         });
         // button to go to the chapter quiz screen (page 2)
-        btnQuiz2 = new JButton("Functions Chapter Quiz");
+        btnQuiz2 = new JButton("Classes Chapter Quiz");
         btnQuiz2.setBounds(25, 650, 175, 60);
         btnQuiz2.setBackground(lightBlue);
         btnQuiz2.addActionListener(new ActionListener() {
@@ -272,12 +299,12 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
             	 try {
                      // close the current frame
-                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                      currentFrame.dispose();
                      // create the chapter quiz frame
-                     quizFrame = new JFrame("Chapter 4 Quiz");
+                     quizFrame = new JFrame("Chapter 5 Quiz");
                      // add the chapter quiz panel
-                     Chapter4Quiz quizPanel = new Chapter4Quiz();
+                     Chapter5Quiz quizPanel = new Chapter5Quiz();
                      quizFrame.add(quizPanel);
                      // set size and make visible
                      quizFrame.setSize(800, 800);
@@ -297,7 +324,7 @@ public class Chapter4Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the blank screen when "Previous Page" is clicked
-                cardLayout.show(Chapter4Textbook.this, "mainCard");
+                cardLayout.show(Chapter5Textbook.this, "mainCard");
             }
         });
         // button to go to next page (page 2)
@@ -308,11 +335,11 @@ public class Chapter4Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the third page when "Next Page" is clicked
-                cardLayout.show(Chapter4Textbook.this, "thirdPage");
+                cardLayout.show(Chapter5Textbook.this, "thirdPage");
             }
         });
         // button to go to the chapter summary screen (page 2)
-        btnSummary2 = new JButton("Functions Chapter Summary");
+        btnSummary2 = new JButton("Classes Chapter Summary");
         btnSummary2.setBounds(580, 650, 175, 60);
         btnSummary2.setBackground(lightBlue);
         btnSummary2.addActionListener(new ActionListener() {
@@ -320,12 +347,12 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
-                    summaryFrame = new JFrame("Chapter 4 Summary");
+                    summaryFrame = new JFrame("Chapter 5 Summary");
                     // add the chapter summary panel
-                    Chapter4Summary summaryPanel = new Chapter4Summary();
+                    Chapter5Summary summaryPanel = new Chapter5Summary();
                     summaryFrame.add(summaryPanel);
                     // set size and make visible
                     summaryFrame.setSize(800, 800);
@@ -339,9 +366,9 @@ public class Chapter4Textbook extends JPanel
 
         // print components to second screen
         secondPage.add(lblTitlePage2);
-        secondPage.add(lblPage2Number);
-        secondPage.add(lblSubtitlePage2);
         secondPage.add(lblTextPage2);
+        secondPage.add(lblSubtitlePage2);
+        secondPage.add(lblPage2Number);
         secondPage.add(btnToTOCPage2);
         secondPage.add(btnQuiz2);
         secondPage.add(btnPrevPage);
@@ -356,26 +383,48 @@ public class Chapter4Textbook extends JPanel
         thirdPage.setBackground(new Color(200, 230, 200));
         thirdPage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         // title for the third page
-        lblTitlePage3 = new JLabel("Functions");
+        lblTitlePage3 = new JLabel("Classes");
         lblTitlePage3.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
         lblTitlePage3.setBounds(50, 50, 400, 70);
         // page number text
         lblPage3Number = new JLabel("Page 3");
         lblPage3Number.setHorizontalAlignment(SwingConstants.CENTER); 
         lblPage3Number.setBounds(280, 725, 200, 40);
-        // page 3 subtitle
-        lblSubtitlePage3 = new JLabel("What is a Return Type?");
-        lblSubtitlePage3.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblSubtitlePage3.setBounds(50, 225, 700, 45);
+        lblSubtitlePage3 = new JLabel("5.3 Access Modifiers and Encapsulation");
+        lblSubtitlePage3.setFont(new Font("Comic Sans MS", Font.BOLD, 25));
+        lblSubtitlePage3.setBounds(50, 145, 550, 30);
         // page 3 text
-        lblTextPage3 = new JLabel("<html> In Java, a function's return "
-        		+ "type specifies the type of value that the function will "
-        		+ "return when it is executed. Functions in Java can either "
-        		+ "return a value of a specified type or return nothing (void). "
-        		+ "Functions can return values such as primitive data types. "
-        		+ "Some examples of this is int, double, float, char, boolean, etc.</html>");
-        lblTextPage3.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        lblTextPage3.setBounds(50, 275, 700, 150);
+        lblTextPage3 = new JLabel("<html>Access modifiers control the visibility and accessibility of class members (fields, constructors, methods) within and outside the class. Encapsulation is a fundamental principle of object-oriented programming that emphasizes bundling data and methods within a class and controlling access to them."
+        		+ "Access Modifiers: Java provides four access modifiers: public, protected, default (no modifier), and private. They determine the level of access to class members."
+        		+ "\n<br>"
+        		+ "public class MyClass {<br>"
+        		+ "    public int publicField;<br>"
+        		+ "    protected int protectedField;<br>"
+        		+ "    int defaultField;<br>"
+        		+ "    private int privateField;<br>"
+        		+ "}<br>"
+        		+ "Encapsulation: Encapsulation involves hiding the internal state of an object and restricting access to it using access modifiers. It helps in achieving data hiding and abstraction, improving code maintainability and security."
+        		+ "\n<br>"
+        		+ "public class Person {<br>"
+        		+ "    private String name;<br>"
+        		+ "    private int age;<br>"
+        		+ "    \n"
+        		+ "    // Getter methods<br>"
+        		+ "    public String getName() {<br>"
+        		+ "        return name;<br>"
+        		+ "    }<br>"
+        		+ "    \n"
+        		+ "    // Setter methods<br>"
+        		+ "    public void setName(String name) {<br>"
+        		+ "        this.name = name;<br>"
+        		+ "    }<br>"
+        		+ "    \n"
+        		+ "}<br>"
+        		+ "Benefits of Encapsulation: Encapsulation promotes code reusability, modularity, and maintainability by hiding implementation details and providing a well-defined interface for interacting with objects."
+        		+ "\n"
+        		+ "By understanding the concepts of classes, constructors, access modifiers, and encapsulation in Java, developers can create well-structured and maintainable object-oriented programs.</html>");
+        lblTextPage3.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+        lblTextPage3.setBounds(50, 165, 700, 500);
         // button to go back to TOC on the third page
         btnToTOCPage3 = new JButton("Table of Contents");
         btnToTOCPage3.setBounds(500, 50, 200, 70);
@@ -385,7 +434,7 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                     currentFrame.dispose();
                     // create the table of contents frame
                     tocFrame = new JFrame("Table of Contents");
@@ -402,7 +451,7 @@ public class Chapter4Textbook extends JPanel
             }
         });
         // button to go to chp quiz slide (page 3)
-        btnQuiz3 = new JButton("Functions Chapter Quiz");
+        btnQuiz3 = new JButton("Classes Chapter Quiz");
         btnQuiz3.setBounds(40, 650, 200, 60);
         btnQuiz3.setBackground(lightBlue);
         btnQuiz3.addActionListener(new ActionListener() {
@@ -410,11 +459,11 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                     currentFrame.dispose();
                     // create the chapter quiz frame
-                    quizFrame = new JFrame("Chapter 4 Quiz");
-                    Chapter4Quiz quizPanel = new Chapter4Quiz();
+                    quizFrame = new JFrame("Chapter 5 Quiz");
+                    Chapter5Quiz quizPanel = new Chapter5Quiz();
                     quizFrame.getContentPane().add(quizPanel);
                     quizFrame.setSize(800, 800);
                     quizFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -432,11 +481,11 @@ public class Chapter4Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the second page when "Previous Page" is clicked
-                cardLayout.show(Chapter4Textbook.this, "secondPage");
+                cardLayout.show(Chapter5Textbook.this, "secondPage");
             }
         });
         // button to go to chp summary slide (page 3)
-        btnSummary3 = new JButton("Functions Chapter Summary");
+        btnSummary3 = new JButton("Classes Chp. Summary");
         btnSummary3.setBounds(540, 650, 200, 60);
         btnSummary3.setBackground(lightBlue);
         btnSummary3.addActionListener(new ActionListener() {
@@ -444,11 +493,11 @@ public class Chapter4Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter4Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter5Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
-                    summaryFrame = new JFrame("Chapter 4 Summary");
-                    JPanel summaryPanel = new Chapter4Summary();
+                    summaryFrame = new JFrame("Chapter 5 Summary");
+                    Chapter5Summary summaryPanel = new Chapter5Summary();
                     summaryFrame.getContentPane().add(summaryPanel);
                     summaryFrame.setSize(800, 800);
                     summaryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -461,9 +510,9 @@ public class Chapter4Textbook extends JPanel
 
         // add components to third page
         thirdPage.add(lblTitlePage3);
-        thirdPage.add(lblPage3Number);
         thirdPage.add(lblSubtitlePage3);
         thirdPage.add(lblTextPage3);
+        thirdPage.add(lblPage3Number);
         thirdPage.add(btnToTOCPage3);
         thirdPage.add(btnQuiz3);
         thirdPage.add(btnPrevPage2);
@@ -478,14 +527,14 @@ public class Chapter4Textbook extends JPanel
 
     /**
 	 * 
-	 * Temporary main function to run the chapter 4 textbook directly
+	 * Temporary main function to run the chapter 5 textbook directly
 	 * 
 	 */
     public static void main(String[] args) {
         // Example of usage (main method for testing)
-        JFrame frame = new JFrame("Chapter 4: Loops Textbook");
-        Chapter4Textbook chapter4Textbook = new Chapter4Textbook();
-        frame.getContentPane().add(chapter4Textbook);
+        JFrame frame = new JFrame("Chapter 5: Classes");
+        Chapter5Textbook chapter5 = new Chapter5Textbook();
+        frame.getContentPane().add(chapter5);
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

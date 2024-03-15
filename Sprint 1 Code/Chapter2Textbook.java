@@ -14,18 +14,19 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import application.tableOfContents;
-import summaries.Chapter3Summary;
-import quizzes.Chapter3Quiz;
-
+import summaries.Chapter5Summary;
+import summaries.Chapter2Summary;
+import quizzes.Chapter2Quiz;
+import quizzes.Chapter5Quiz;
 
 /**
- * Chapter 3 Textbook for the Learning Java Application.
- * Loops
+ * Chapter 2 Textbook for the Learning Java Application.
+ * If-Else Statements
  * 
- * @author Max Flannick
+ * @author Destiny Deleon
  *
  */
-public class Chapter3Textbook extends JPanel 
+public class Chapter2Textbook extends JPanel 
 {
     private CardLayout cardLayout;
 
@@ -68,13 +69,13 @@ public class Chapter3Textbook extends JPanel
 
     /**
 	 * 
-	 * Chapter3Textbook() - Constructor
+	 * Chapter2Textbook() - Constructor
 	 * 
-	 * Used to create the chapter 3 (loops) textbook which the user is able to flip through and read.
+	 * Used to create the chapter 2 (if-else statements) textbook which the user is able to flip through and read.
 	 * The user is also able to access the summary, quiz, and table of contents for this chapter as well.
 	 * 
 	 **/
-    public Chapter3Textbook() 
+    public Chapter2Textbook() 
     {
     	// declare variables basic screen variables
         Color lightBlue = new Color(173, 216, 230);        // color for the buttons
@@ -91,30 +92,26 @@ public class Chapter3Textbook extends JPanel
         // print screen information
         // page number 
         // title text
-        lblTitle = new JLabel("Loops");
+        lblTitle = new JLabel("If/Else");
         lblTitle.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
-        lblTitle.setBounds(50, 50, 200, 70);
+        lblTitle.setBounds(50, 50, 400, 70);
         // page number text
         lblPage1Number = new JLabel("Page 1");
         lblPage1Number.setHorizontalAlignment(SwingConstants.CENTER); 
         lblPage1Number.setBounds(280, 725, 200, 40);
         // page 1 subtitle
-        lblSubtitlePage1 = new JLabel("What is a Loop?");
+        lblSubtitlePage1 = new JLabel("What is a If Statement?");
         lblSubtitlePage1.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
         lblSubtitlePage1.setBounds(50, 225, 400, 45);
+
         // page 1 text
-        lblTextPage1 = new JLabel("<html>\r\n"
-        		+ "    <p>A loop is a programming construct that allows you to execute a block of code repeatedly. It iterates over a sequence of instructions until a specific condition is met. Loops are used to automate repetitive tasks and make your code more <b>efficient</b> and <b>concise</b>. This will save code as you do not have to copy and paste the same code over and over again to do a task.</p>\r\n"
-        		+ "    <p>There are many different purposes for using loops such as:</p>\r\n"
-        		+ "    <ul>\r\n"
-        		+ "        <li>Printing and adding numbers</li>\r\n"
-        		+ "        <li>Going through a file's contents</li>\r\n"
-        		+ "        <li>Asking the user for input until they say to stop</li>\r\n"
-        		+ "    </ul>\r\n"
-        		+ "    <p>There are three main types of loops in Java we will cover. These are <b>for</b>, <b>while</b>, and <b>do-while</b> loops.</p>\r\n"
-        		+ "</html>\r\n");
+        lblTextPage1 = new JLabel("<html>In Java, an if statement is a control flow statement that allows "
+        		+ "you to execute a block of code based on a condition. It is used to decide whether "
+        		+ "a certain statement or block of statements will be executed or not i.e if a certain "
+        		+ "condition is true then a block of statement is executed otherwise not. It's one of "
+        		+ "the fundamental building blocks of programming logic. </html>");
         lblTextPage1.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        lblTextPage1.setBounds(50, 275, 700, 300);
+        lblTextPage1.setBounds(50, 275, 700, 150);
         
         // button to go to TOC
         btnToTOC = new JButton("Table of Contents");
@@ -125,7 +122,7 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                  try {
                      // close current frame
-                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                      currentFrame.dispose();
                      // create the table of contents frame
                      tocFrame = new JFrame("Table of Contents");
@@ -142,7 +139,7 @@ public class Chapter3Textbook extends JPanel
              }
         });
         // button to go to chp quiz slide
-        btnQuiz = new JButton("Loops Chapter Quiz");
+        btnQuiz = new JButton("If/Else Chapter Quiz");
         btnQuiz.setBounds(40, 650, 200, 60);
         btnQuiz.setBackground(lightBlue);
         btnQuiz.addActionListener(new ActionListener() {
@@ -150,11 +147,11 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                     currentFrame.dispose();
                     // create the chapter quiz frame
-                    quizFrame = new JFrame("Chapter 3 Quiz");
-                    Chapter3Quiz quizPanel = new Chapter3Quiz();
+                    quizFrame = new JFrame("Chapter 2 Quiz");
+                    Chapter2Quiz quizPanel = new Chapter2Quiz();
                     quizFrame.getContentPane().add(quizPanel);
                     quizFrame.setSize(800, 800);
                     quizFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -173,11 +170,11 @@ public class Chapter3Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the blank screen when "Next Page" is clicked
-                cardLayout.show(Chapter3Textbook.this, "secondPage");
+                cardLayout.show(Chapter2Textbook.this, "secondPage");
             }
         });
         // button to go to chp summary slide
-        btnSummary = new JButton("Loops Chapter Summary");
+        btnSummary = new JButton("If/Else Chapter Summary");
         btnSummary.setBounds(540, 650, 200, 60);
         btnSummary.setBackground(lightBlue);
         btnSummary.addActionListener(new ActionListener() {
@@ -185,12 +182,12 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
-                    summaryFrame = new JFrame("Chapter 3 Summary");
+                    summaryFrame = new JFrame("Chapter 2 Summary");
                     // add the chapter summary panel
-                    Chapter3Summary summaryPanel = new Chapter3Summary();
+                    Chapter2Summary summaryPanel = new Chapter2Summary();
                     summaryFrame.add(summaryPanel);
                     // set size and make visible
                     summaryFrame.setSize(800, 800);
@@ -218,7 +215,7 @@ public class Chapter3Textbook extends JPanel
         secondPage.setBackground(new Color(200, 230, 200));
         secondPage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         // title for the second page
-        lblTitlePage2 = new JLabel("Loops");
+        lblTitlePage2 = new JLabel("If/Else");
         lblTitlePage2.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
         lblTitlePage2.setBounds(50, 50, 400, 70);
         // page number text
@@ -226,25 +223,15 @@ public class Chapter3Textbook extends JPanel
         lblPage2Number.setHorizontalAlignment(SwingConstants.CENTER); 
         lblPage2Number.setBounds(280, 725, 200, 40);
         // page 2 subtitle
-        lblSubtitlePage2 = new JLabel("For Loops - What are They?");
+        lblSubtitlePage2 = new JLabel("What is an Else Statement?");
         lblSubtitlePage2.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblSubtitlePage2.setBounds(50, 175, 500, 40);
+        lblSubtitlePage2.setBounds(50, 225, 700, 45);
         // page 2 text
-        lblTextPage2 = new JLabel("<html>\r\n"
-        		+ "    <p><b>For Loops:</b> For loops are an important concept in programming, used to loop through a set of items or do an repeated action. "
-        		+ "However, an important note is that it is ran a specific number of times so it is important to know how many times you want to iterate before making the loop.</p>\r\n"
-        		+ "    <p><b>Syntax:</b> There are three components to making a for loop: initialization, condition, and updating the counter. "
-        		+ "Before the loop is made you initialize the loop counter (the variable used to run through your loop or commonly used as \'i\') to a set value. "
-        		+ "The condition is a boolean statement that will end the loop when the condition is true. "
-        		+ "After each completion the counter will be updated until (if) the loop terminates.</p>\r\n"
-        		+ "    <p><b>Example:</b> For example, if you wanted to print numbers 1 to 5 you would do:</p>\r\n"
-        		+ "    <pre><code>for (int i = 1; i <= 5; i++) {\r\n"
-        		+ "    System.out.println(i);\r\n"
-        		+ "}</code></pre>\r\n"
-        		+ "    <p>The loop counter variable (i) starts at 1, loops until it is greater than or equal to 5, incrementing by 1 each time the loop is ran.</p>\r\n"
-        		+ "</html>\r\n");
+        lblTextPage2 = new JLabel("<html>In Java, an else statement is used in conjunction with an if statement to execute a block of "
+                + "code when the condition specified in the if statement evaluates to false. The else statement"
+                + "follows immediately after the body of the if statement and before any subsequent if or else if statements. </html>");
         lblTextPage2.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        lblTextPage2.setBounds(50, 190, 700, 475);
+        lblTextPage2.setBounds(50, 275, 700, 150);
         // button to go to TOC on the second page
         btnToTOCPage2 = new JButton("Table of Contents");
         btnToTOCPage2.setBounds(500, 50, 200, 70);
@@ -254,7 +241,7 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                     currentFrame.dispose();
                     // create the table of contents frame
                     tocFrame = new JFrame("Table of Contents");
@@ -271,7 +258,7 @@ public class Chapter3Textbook extends JPanel
             }
         });
         // button to go to the chapter quiz screen (page 2)
-        btnQuiz2 = new JButton("Loops Chapter Quiz");
+        btnQuiz2 = new JButton("If/Else Chapter Quiz");
         btnQuiz2.setBounds(25, 650, 175, 60);
         btnQuiz2.setBackground(lightBlue);
         btnQuiz2.addActionListener(new ActionListener() {
@@ -279,12 +266,12 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
             	 try {
                      // close the current frame
-                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                      currentFrame.dispose();
                      // create the chapter quiz frame
-                     quizFrame = new JFrame("Chapter 3 Quiz");
+                     quizFrame = new JFrame("Chapter 2 Quiz");
                      // add the chapter quiz panel
-                     Chapter3Quiz quizPanel = new Chapter3Quiz();
+                     Chapter2Quiz quizPanel = new Chapter2Quiz();
                      quizFrame.add(quizPanel);
                      // set size and make visible
                      quizFrame.setSize(800, 800);
@@ -304,7 +291,7 @@ public class Chapter3Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the blank screen when "Previous Page" is clicked
-                cardLayout.show(Chapter3Textbook.this, "mainCard");
+                cardLayout.show(Chapter2Textbook.this, "mainCard");
             }
         });
         // button to go to next page (page 2)
@@ -315,11 +302,11 @@ public class Chapter3Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the third page when "Next Page" is clicked
-                cardLayout.show(Chapter3Textbook.this, "thirdPage");
+                cardLayout.show(Chapter2Textbook.this, "thirdPage");
             }
         });
         // button to go to the chapter summary screen (page 2)
-        btnSummary2 = new JButton("Loops Chapter Summary");
+        btnSummary2 = new JButton("If/Else Chapter Summary");
         btnSummary2.setBounds(580, 650, 175, 60);
         btnSummary2.setBackground(lightBlue);
         btnSummary2.addActionListener(new ActionListener() {
@@ -327,12 +314,12 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
-                    summaryFrame = new JFrame("Chapter 3 Summary");
+                    summaryFrame = new JFrame("Chapter 2 Summary");
                     // add the chapter summary panel
-                    Chapter3Summary summaryPanel = new Chapter3Summary();
+                    Chapter2Summary summaryPanel = new Chapter2Summary();
                     summaryFrame.add(summaryPanel);
                     // set size and make visible
                     summaryFrame.setSize(800, 800);
@@ -363,7 +350,7 @@ public class Chapter3Textbook extends JPanel
         thirdPage.setBackground(new Color(200, 230, 200));
         thirdPage.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         // title for the third page
-        lblTitlePage3 = new JLabel("Loops");
+        lblTitlePage3 = new JLabel("If/Else");
         lblTitlePage3.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
         lblTitlePage3.setBounds(50, 50, 400, 70);
         // page number text
@@ -371,33 +358,16 @@ public class Chapter3Textbook extends JPanel
         lblPage3Number.setHorizontalAlignment(SwingConstants.CENTER); 
         lblPage3Number.setBounds(280, 725, 200, 40);
         // page 3 subtitle
-        lblSubtitlePage3 = new JLabel("While & Do-While Loops");
+        lblSubtitlePage3 = new JLabel("What is a Nest If Statement?");
         lblSubtitlePage3.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblSubtitlePage3.setBounds(50, 160, 650, 40);
+        lblSubtitlePage3.setBounds(50, 225, 700, 45);
         // page 3 text
-        lblTextPage3 = new JLabel("<html>\r\n"
-        		+ "    <p><b>While Loops:</b> Are similar to for loops but they are used when you do not know how many times the loop is going to run."
-        		+ " The while loop only consists of a condition and the loop will run until the condition is true, or not at all if the condition is true to being with, OR infinitely. "
-        		+ "It is important to update the variable you are using in the condition or an infinite loop will occur.</p>\r\n"
-        		+ "    <p><b>Example:</b> Print numbers 1 to 5:</p>\r\n"
-        		+ "    <pre>int i = 1;\r\n"
-        		+ "while (i <= 5) {\r\n"
-        		+ "    System.out.println(i);\r\n"
-        		+ "    i++;\r\n"
-        		+ "}</pre>\r\n"
-        	    + "<p><b>NOTE:</b> if \"i++\" was not in the loop it would run infinitely since \'i\' will always be less than 5.</p>"
-        		+ "    <p><b>Do-While Loops:</b> Is very similar to a while loop but it will run at least once unconditionally. </p>\r\n"
-        		+ "    <p><b>Example:</b> Prompt user for a response until 'quit' is entered:</p>\r\n"
-        		+ "    <pre>Scanner scanner = new Scanner(System.in);\r\n"
-        		+ "String input;\r\n"
-        		+ "do {\r\n"
-        		+ "    System.out.print(\"Enter 'quit' to exit: \");\r\n"
-        		+ "    input = scanner.nextLine();\r\n"
-        		+ "} while (!input.equals(\"quit\"));</pre>\r\n"
-        		+ "</html>\r\n"
-        		+ "");
-        lblTextPage3.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-        lblTextPage3.setBounds(50, 185, 700, 480);
+        lblTextPage3 = new JLabel("<html> In Java, a nested if statement is an "
+        		+ "if statement that is placed inside another if statement. This allows "
+        		+ "for conditional branching within conditional branches, allowing for "
+        		+ "more complex decision-making in your code.</html>");
+        lblTextPage3.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        lblTextPage3.setBounds(50, 275, 700, 150);
         // button to go back to TOC on the third page
         btnToTOCPage3 = new JButton("Table of Contents");
         btnToTOCPage3.setBounds(500, 50, 200, 70);
@@ -407,7 +377,7 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                     currentFrame.dispose();
                     // create the table of contents frame
                     tocFrame = new JFrame("Table of Contents");
@@ -424,7 +394,7 @@ public class Chapter3Textbook extends JPanel
             }
         });
         // button to go to chp quiz slide (page 3)
-        btnQuiz3 = new JButton("Loops Chapter Quiz");
+        btnQuiz3 = new JButton("If/Else Chapter Quiz");
         btnQuiz3.setBounds(40, 650, 200, 60);
         btnQuiz3.setBackground(lightBlue);
         btnQuiz3.addActionListener(new ActionListener() {
@@ -432,11 +402,11 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                     currentFrame.dispose();
                     // create the chapter quiz frame
-                    quizFrame = new JFrame("Chapter 3 Quiz");
-                    Chapter3Quiz quizPanel = new Chapter3Quiz();
+                    quizFrame = new JFrame("Chapter 2 Quiz");
+                    Chapter2Quiz quizPanel = new Chapter2Quiz();
                     quizFrame.getContentPane().add(quizPanel);
                     quizFrame.setSize(800, 800);
                     quizFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -454,11 +424,11 @@ public class Chapter3Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the second page when "Previous Page" is clicked
-                cardLayout.show(Chapter3Textbook.this, "secondPage");
+                cardLayout.show(Chapter2Textbook.this, "secondPage");
             }
         });
         // button to go to chp summary slide (page 3)
-        btnSummary3 = new JButton("Loops Chapter Summary");
+        btnSummary3 = new JButton("If/Else Chapter Summary");
         btnSummary3.setBounds(540, 650, 200, 60);
         btnSummary3.setBackground(lightBlue);
         btnSummary3.addActionListener(new ActionListener() {
@@ -466,11 +436,11 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
-                    summaryFrame = new JFrame("Chapter 3 Summary");
-                    JPanel summaryPanel = new Chapter3Summary();
+                    summaryFrame = new JFrame("Chapter 2 Summary");
+                    JPanel summaryPanel = new Chapter2Summary();
                     summaryFrame.getContentPane().add(summaryPanel);
                     summaryFrame.setSize(800, 800);
                     summaryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -500,14 +470,14 @@ public class Chapter3Textbook extends JPanel
 
     /**
 	 * 
-	 * Temporary main function to run the chapter 3 textbook directly
+	 * Temporary main function to run the chapter 2 textbook directly
 	 * 
 	 */
     public static void main(String[] args) {
         // Example of usage (main method for testing)
-        JFrame frame = new JFrame("Chapter 3: Loops Textbook");
-        Chapter3Textbook chapter3Textbook = new Chapter3Textbook();
-        frame.getContentPane().add(chapter3Textbook);
+        JFrame frame = new JFrame("Chapter 2: Loops Textbook");
+        Chapter2Textbook chapter2Textbook = new Chapter2Textbook();
+        frame.getContentPane().add(chapter2Textbook);
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

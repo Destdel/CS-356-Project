@@ -1,4 +1,4 @@
-package textbook;
+package textbooks;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -18,7 +18,14 @@ import application.tableOfContents;
 import summaries.Chapter1Summary;
 import quizzes.Chapter1Quiz;
 
-public class chapter1 extends JPanel 
+/**
+ * Chapter 1 Textbook for the Learning Java Application.
+ * The Basics
+ * 
+ * @author Anthony Ephault
+ *
+ */
+public class Chapter1Textbook extends JPanel 
 {
     private CardLayout cardLayout;
 
@@ -59,7 +66,15 @@ public class chapter1 extends JPanel
     private JButton btnSummary3; 		// button to proceed to the summary screen (page 3)
     private JButton	btnPrevPage2;		// button to go to the previous page of the textbook (if there is one) (page 3)
 
-    public chapter1() 
+    /**
+	 * 
+	 * Chapter1Textbook() - Constructor
+	 * 
+	 * Used to create the chapter 1 (basics) textbook which the user is able to flip through and read.
+	 * The user is also able to access the summary, quiz, and table of contents for this chapter as well.
+	 * 
+	 **/
+    public Chapter1Textbook() 
     {
     	// declare variables basic screen variables
         Color lightBlue = new Color(173, 216, 230);        // color for the buttons
@@ -78,7 +93,7 @@ public class chapter1 extends JPanel
         // title text
         lblTitle = new JLabel("Basics");
         lblTitle.setFont(new Font("Lucida Handwriting", Font.BOLD, 60));
-        lblTitle.setBounds(50, 50, 200, 70);
+        lblTitle.setBounds(50, 50, 300, 70);
         // page number text
         lblPage1Number = new JLabel("Page 1");
         lblPage1Number.setHorizontalAlignment(SwingConstants.CENTER); 
@@ -86,63 +101,18 @@ public class chapter1 extends JPanel
         // page 1 subtitle
         lblSubtitlePage1 = new JLabel("1.1 Writing Your First Java Program");
         lblSubtitlePage1.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblSubtitlePage1.setBounds(50, 225, 400, 45);
+        lblSubtitlePage1.setBounds(50, 150, 600, 40);
         // page 1 text
-        lblTextPage1 = new JLabel("<html>Package Declaration:"
-        		+ "A package in Java is a way to organize related classes and interfaces into a single namespace."
-        		+ "The package declaration statement appears at the beginning of a Java source file and specifies the package to which the class or interface belongs."
-        		+ "It is optional but recommended for larger projects to prevent naming conflicts."
-        		+ "Example:"
-        		+ "package com.example.myproject;"
-        		+ "Import Statements:"
-        		+ "Import statements are used to make classes and interfaces from other packages available in the current source file."
-        		+ "They appear after the package declaration (if present) and before the class declaration."
-        		+ "Import statements can be specific, importing only the classes or interfaces needed, or can use the wildcard (*) to import all classes and interfaces from a package."
-        		+ "Example:"
-        		+ "import java.util.Scanner;"
-        		+ "\n"
-        		+ "Class Declaration:"
-        		+ "A class in Java is a blueprint for creating objects."
-        		+ "Every Java program must have at least one class, and the class declaration specifies the name of the class and its visibility."
-        		+ "The class declaration is followed by the class body enclosed in curly braces."
-        		+ "Example:"
-        		+ "import java.util.Scanner;"
-        		+ "\n"
-        		+ "Main Method:"
-        		+ "The main method is the entry point of a Java program."
-        		+ "It is declared with the signature:"
-        		+ "public static void main(String[] args)"
-        		+ "The main method must be declared as public, static, and void."
-        		+ "It accepts a single parameter, an array of strings (args), which can be used to pass command-line arguments to the program."
-        		+ "The main method contains the code that will be executed when the program is run"
-        		+ "Example:"
-        		+ "public static void main(String[] args) {"
-        		+ "// Code to be executed goes here"
-        		+ "}"
-        		+ "\n"
-        		+ "Writing a Simple \\\"Hello, World!\\\" Program:"
-        		+ "A \\\"Hello, World!\\\" program is often the first program written by beginners in any programming language. It simply outputs the phrase \\\"Hello, World!\\\" to the console."
-        		+ "package com.example.helloworld;"
-        		+ "\n"
-        		+ "public class HelloWorld {"
-        		+ "    public static void main(String[] args) {"
-        		+ "	        System.out.println(\\\"Hello, World!\\\");"
-        		+ "    }"
-        		+ "}"
-        		+ "The package declaration (package com.example.helloworld;) specifies the package to which the class belongs."
-        		+ "The class declaration (public class HelloWorld {) defines the class named HelloWorld."
-        		+ "The main method (public static void main(String[] args) {) is the entry point of the program."
-        		+ "Inside the main method, the statement System.out.println(\\\"Hello, World!\\\"); prints \\\"Hello, World!\\\" to the console."
-        		+ "\n"
-        		+ "Compiling Java Code using the javac Compiler:"
-        		+ "Once the Java program is written in a text file with a .java extension (e.g., HelloWorld.java), it needs to be compiled into bytecode using the Java compiler (javac)."
-        		+ "Open a command prompt or terminal and navigate to the directory containing the Java file."
-        		+ "Use the javac command followed by the name of the Java file to compile it."
-        		+ "Example:"
-        		+ "javac HelloWorld.java"
-        		+ "If the compilation is successful, it will generate a bytecode file named HelloWorld.class, which contains the compiled code.<html>");
-        lblTextPage1.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        lblTextPage1.setBounds(50, 275, 700, 150);
+        lblTextPage1 = new JLabel("<html>"
+                + "<b>Package Declaration:</b> A package in Java is used to organize related classes and interfaces into a single namespace. While optional, it's recommended for larger projects to prevent naming conflicts. Example: <code>package com.example.myproject;</code><br><br>"
+                + "<b>Import Statements:</b> Import statements are used to make classes and interfaces from other packages available in the current source file. They can be specific, importing only the classes or interfaces needed, or can use the wildcard (*) to import all classes and interfaces from a package. Example: <code>import java.util.Scanner;</code><br><br>"
+                + "<b>Class Declaration:</b> A class in Java serves as a blueprint for creating objects. The class declaration specifies the name of the class and its visibility, followed by the class body enclosed in curly braces. Example: <code>public class MyClass { }</code><br><br>"
+                + "<b>Main Method:</b> The main method is the entry point of a Java program. It must be declared as <code>public static void main(String[] args)</code>. The main method accepts a single parameter, an array of strings (<code>args</code>), which can be used to pass command-line arguments to the program. Inside the main method is the code that will be executed when the program is run.<br><br>"
+                + "<b>Simple 'Hello, World!' Program:</b> The 'Hello, World!' program is often the first program written by beginners in any programming language. It outputs the phrase 'Hello, World!' to the console. Example:<br><code>public class HelloWorld {<br>&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(\"Hello, World!\");<br>&nbsp;&nbsp;&nbsp;&nbsp;}</code><br><br>"
+                + "<b>Compiling Java Code:</b> Java source code needs to be compiled into bytecode using the Java compiler (<code>javac</code>). After writing the Java program in a text file with a <code>.java</code> extension (e.g., <code>HelloWorld.java</code>), navigate to the directory containing the Java file and run <code>javac FileName.java</code>. If compilation is successful, it will generate a bytecode file named <code>FileName.class</code>."
+                + "</html>");
+        lblTextPage1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+        lblTextPage1.setBounds(50, 190, 700, 475);
         
         // button to go to TOC
         btnToTOC = new JButton("Table of Contents");
@@ -153,7 +123,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
                  try {
                      // close current frame
-                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                      currentFrame.dispose();
                      // create the table of contents frame
                      tocFrame = new JFrame("Table of Contents");
@@ -178,7 +148,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                     currentFrame.dispose();
                     // create the chapter quiz frame
                     quizFrame = new JFrame("Chapter 1 Quiz");
@@ -201,7 +171,7 @@ public class chapter1 extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the blank screen when "Next Page" is clicked
-                cardLayout.show(chapter1.this, "secondPage");
+                cardLayout.show(Chapter1Textbook.this, "secondPage");
             }
         });
         // button to go to chp summary slide
@@ -213,7 +183,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
                     summaryFrame = new JFrame("Chapter 1 Summary");
@@ -253,65 +223,27 @@ public class chapter1 extends JPanel
         lblPage2Number = new JLabel("Page 2");
         lblPage2Number.setHorizontalAlignment(SwingConstants.CENTER); 
         lblPage2Number.setBounds(280, 725, 200, 40);
-        lblSubtitlePage1 = new JLabel("1.2 Java Syntax and Structure");
-        lblSubtitlePage1.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblSubtitlePage1.setBounds(50, 225, 400, 45);
+        lblSubtitlePage2 = new JLabel("1.2 Java Syntax and Structure");
+        lblSubtitlePage2.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
+        lblSubtitlePage2.setBounds(50, 150, 550, 40);
         // page 2 text
-        lblTextPage2 = new JLabel("<html>Identifiers and Keywords in Java:"
-        		+ "Identifiers: In Java, identifiers are names given to variables, methods, classes, packages, and interfaces. They consist of letters, digits, underscores (_), and dollar signs ($), and must begin with a letter, underscore, or dollar sign. Identifiers are case-sensitive."
-        		+ "\n"
-        		+ "Examples: myVariable, calculateArea, MyClass, myPackage, MyInterface"
-        		+ "Keywords: Keywords are reserved words in Java that have predefined meanings and cannot be used as identifiers. They are part of the language syntax and have specific purposes."
-        		+ "\n"
-        		+ "Examples of Java keywords: public, class, static, void, if, else, for, while, return, new, true, false, null, etc."
-        		+ "Rules for Naming Classes, Variables, and Methods:"
-        		+ "\n"
-        		+ "Classes: Class names should start with an uppercase letter and follow camel case convention (e.g., MyClass, BankAccount, EmployeeDetails)."
-        		+ "\n"
-        		+ "Variables and Methods: Variable and method names should start with a lowercase letter and follow camel case convention. They should be descriptive and meaningful to enhance code readability."
-        		+ "\n"
-        		+ "Constants: Constants are variables whose values cannot be changed once assigned. They are conventionally written in uppercase letters with underscores separating words (e.g., MAX_VALUE, PI, DEFAULT_SIZE)."
-        		+ "\n"
-        		+ "Comments in Java:"
-        		+ "\n"
-        		+ "Single-line Comments (//): Single-line comments start with two forward slashes (//) and continue until the end of the line. They are used for short comments or explanations within the code."
-        		+ "\n"
-        		+ "// This is a single-line comment"
-        		+ "int x = 5; // Assigning value 5 to variable x"
-        		+ "Multi-line Comments (/ /): Multi-line comments begin with /* and end with */. They can span multiple lines and are used for longer explanations or comments."
-        		+ "\n"
-        		+ "/*\n"
-        		+ " * This is a multi-line comment."
-        		+ " * It can span multiple lines and is used"
-        		+ " * for longer explanations or comments."
-        		+ " *\n"
-        		+ "Basic Syntax for Statements, Expressions, and Blocks of Code:"
-        		+ "\n"
-        		+ "Statements: In Java, a statement is a complete unit of execution that ends with a semicolon (;). Examples of statements include variable declarations, assignment statements, method calls, and control flow statements (if, for, while, etc.)."
-        		+ "\n"
-        		+ "int x = 5; // Variable declaration and assignment statement"
-        		+ "System.out.println(\"Hello, World!\"); // Method call statement"
-        		+ "Expressions: An expression is a combination of variables, operators, and method invocations that evaluates to a single value. Expressions can be used within statements and other expressions."
-        		+ "\n"
-        		+ "int result = 2 * (3 + 5); // Example of an expression"
-        		+ "Blocks of Code: A block of code is enclosed within curly braces ({}) and consists of one or more statements. Blocks of code are used to group statements together, typically within control flow statements or method bodies."
-        		+ "\n"
-        		+ "if (x > 0) { // Start of a block"
-        		+ "    System.out.println(\"x is positive\");"
-        		+ "    // Additional statements"
-        		+ "} // End of the block"
-        		+ "Understanding these fundamental aspects of Java syntax and structure is crucial for writing clear, readable, and maintainable code. By adhering to naming conventions, using comments effectively, and understanding the basic syntax, developers can create Java programs that are easier to understand and maintain."
-        		+ "\n"
-        		+ "User"
-        		+ "go into detail about this:"
-        		+ "1.4 Understanding Data Types in Java"
-        		+ "\n"
-        		+ "Primitive data types: byte, short, int, long, float, double, char, boolean"
-        		+ "Reference data types: arrays, objects, Strings"
-        		+ "Declaring variables and initializing values"
-        		+ "Type casting and type conversion</html>");
-        lblTextPage2.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        lblTextPage2.setBounds(50, 275, 700, 150);
+        lblTextPage2 = new JLabel("<html>"
+        	    + "<b>Identifiers and Keywords:</b> Identifiers are names given to variables, methods, classes, etc. Keywords are reserved words with predefined meanings."
+        	    + "<br><br>"
+        	    + "<b>Naming Rules:</b> Class names start with uppercase letters and follow camel case. Variables and methods start with lowercase letters and follow camel case. Constants are in uppercase with underscores."
+        	    + "<br><br>"
+        	    + "<b>Comments:</b> Single-line comments start with //, while multi-line comments are enclosed in /* */."
+        	    + "<br><br>"
+        	    + "<b>Basic Syntax:</b> Statements end with a semicolon. Expressions evaluate to a single value. Blocks of code are enclosed in curly braces."
+        	    + "<br><br>"
+        	    + "<b>Understanding Java's syntax and structure is essential for writing clear, maintainable code.</b>"
+        	    + "<br><br>"
+        	    + "<b>Next Topic:</b> Data Types in Java: Primitive types include byte, short, int, long, float, double, char, boolean. Reference types include arrays, objects, and Strings."
+        	    + "<br><br>"
+        	    + "<b>Further Exploration:</b> Advanced Java Concepts: Explore topics like inheritance, polymorphism, exception handling, and generics to enhance your understanding of Java programming."
+        	    + "</html>");
+        lblTextPage2.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+        lblTextPage2.setBounds(50, 190, 700, 475);
         // button to go to TOC on the second page
         btnToTOCPage2 = new JButton("Table of Contents");
         btnToTOCPage2.setBounds(500, 50, 200, 70);
@@ -321,7 +253,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                     currentFrame.dispose();
                     // create the table of contents frame
                     tocFrame = new JFrame("Table of Contents");
@@ -346,7 +278,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
             	 try {
                      // close the current frame
-                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                     JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                      currentFrame.dispose();
                      // create the chapter quiz frame
                      quizFrame = new JFrame("Chapter 1 Quiz");
@@ -371,7 +303,7 @@ public class chapter1 extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the blank screen when "Previous Page" is clicked
-                cardLayout.show(chapter1.this, "mainCard");
+                cardLayout.show(Chapter1Textbook.this, "mainCard");
             }
         });
         // button to go to next page (page 2)
@@ -382,7 +314,7 @@ public class chapter1 extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the third page when "Next Page" is clicked
-                cardLayout.show(chapter1.this, "thirdPage");
+                cardLayout.show(Chapter1Textbook.this, "thirdPage");
             }
         });
         // button to go to the chapter summary screen (page 2)
@@ -394,7 +326,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
                     summaryFrame = new JFrame("Chapter 1 Summary");
@@ -414,6 +346,8 @@ public class chapter1 extends JPanel
         // print components to second screen
         secondPage.add(lblTitlePage2);
         secondPage.add(lblPage2Number);
+        secondPage.add(lblSubtitlePage2);
+        secondPage.add(lblTextPage2);
         secondPage.add(btnToTOCPage2);
         secondPage.add(btnQuiz2);
         secondPage.add(btnPrevPage);
@@ -436,52 +370,33 @@ public class chapter1 extends JPanel
         lblPage3Number.setHorizontalAlignment(SwingConstants.CENTER); 
         lblPage3Number.setBounds(280, 725, 200, 40);
         lblSubtitlePage3 = new JLabel("1.5 Understanding Data Types in Java");
-        lblSubtitlePage3.setFont(new Font("Comic Sans MS", Font.BOLD, 30));
-        lblSubtitlePage3.setBounds(50, 225, 400, 45);
-        // page 2 text
-        lblTextPage3 = new JLabel("<html>Primitive Data Types:"
-        		+ "byte: Represents an 8-bit signed integer. Range: -128 to 127."
-        		+ "short: Represents a 16-bit signed integer. Range: -32,768 to 32,767."
-        		+ "int: Represents a 32-bit signed integer. Range: -2^31 to 2^31 - 1."
-        		+ "long: Represents a 64-bit signed integer. Range: -2^63 to 2^63 - 1."
-        		+ "float: Represents a 32-bit floating-point number. Range: Â±3.40282347E+38F."
-        		+ "double: Represents a 64-bit floating-point number. Range: Â±1.79769313486231570E+308."
-        		+ "char: Represents a single 16-bit Unicode character. Range: '\\u0000' to '\\uffff'."
-        		+ "boolean: Represents a boolean value, which can be either true or false."
-        		+ "Reference Data Types:"
-        		+ "\n"
-        		+ "Arrays: Arrays are collections of elements of the same type, accessed by an index. They can be of primitive types or reference types."
-        		+ "\n"
-        		+ "int[] numbers = new int[5]; // Declaring and initializing an array of integers"
-        		+ "Objects: Objects are instances of classes and represent real-world entities. They have attributes (fields) and behaviors (methods)."
-        		+ "\n"
-        		+ "Person person = new Person(\"John\", 25); // Creating an instance of the Person class"
-        		+ "Strings: Strings are sequences of characters enclosed in double quotes. In Java, strings are immutable objects."
-        		+ "\n"
-        		+ "String message = \"Hello, World!\"; // Declaring and initializing a string"
-        		+ "Declaring Variables and Initializing Values:"
-        		+ "\n"
-        		+ "Variable Declaration: To declare a variable in Java, you specify the variable's data type followed by its name."
-        		+ "\n"
-        		+ "int age; // Variable declaration"
-        		+ "Initializing Variables: Variables can be initialized at the time of declaration or later in the code."
-        		+ "\n"
-        		+ "int age = 30; // Initializing a variable at the time of declaration"
-        		+ "Type Casting and Type Conversion:"
-        		+ "\n"
-        		+ "Type Casting: Type casting is the process of converting a value from one data type to another. Implicit casting (widening) is done automatically by the compiler when no data is lost, while explicit casting (narrowing) requires explicit syntax."
-        		+ "\n"
-        		+ "double x = 5; // Implicit casting from int to double"
-        		+ "int y = (int) 5.7; // Explicit casting from double to int"
-        		+ "Type Conversion: Type conversion is the process of converting a value from one data type to another. Java automatically performs widening conversions when necessary, but narrowing conversions may result in loss of data and require explicit casting."
-        		+ "\n"
-        		+ "int a = 10;"
-        		+ "double b = a; // Widening conversion (implicit"
-        		+ "Understanding data types in Java is fundamental for writing efficient and error-free code. By selecting appropriate data types, developers can optimize memory usage and ensure accurate representation of data. Additionally, mastering type casting and conversion enables manipulation and transformation of data as required by different operations and algorithms."
-        		+ "\n"
-        		+ "User</html>");
-        lblTextPage3.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        lblTextPage3.setBounds(50, 275, 700, 150);
+        lblSubtitlePage3.setFont(new Font("Comic Sans MS", Font.BOLD, 25));
+        lblSubtitlePage3.setBounds(50, 150, 600, 30);
+        // page 3 text
+        lblTextPage3 = new JLabel("<html>"
+        	    + "<b>Primitive Data Types:</b><br>"
+        	    + "- byte: 8-bit, -128 to 127.<br>"
+        	    + "- short: 16-bit, -32,768 to 32,767.<br>"
+        	    + "- int: 32-bit, -2^31 to 2^31 - 1.<br>"
+        	    + "- long: 64-bit, -2^63 to 2^63 - 1.<br>"
+        	    + "- float: 32-bit, ±3.40282347E+38F.<br>"
+        	    + "- double: 64-bit, ±1.79769313486231570E+308.<br>"
+        	    + "- char: 16-bit Unicode.<br>"
+        	    + "- boolean: true or false.<br><br>"
+        	    + "<b>Reference Data Types:</b><br>"
+        	    + "- Arrays: Collections of elements of the same type.<br>"
+        	    + "- Objects: Instances of classes representing entities.<br>"
+        	    + "- Strings: Sequences of characters.<br><br>"
+        	    + "<b>Variables and Values:</b><br>"
+        	    + "- Variable Declaration: Specify data type and name.<br>"
+        	    + "- Initializing Variables: Assign values at declaration or later.<br><br>"
+        	    + "<b>Type Casting and Conversion:</b><br>"
+        	    + "- Type Casting: Convert between data types.<br>"
+        	    + "- Type Conversion: Convert values between data types.<br><br>"
+        	    + "Understanding Java's data types is vital for efficient coding, optimizing memory usage, and ensuring accurate data representation."
+        	    + "</html>");
+        lblTextPage3.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+        lblTextPage3.setBounds(50, 180, 700, 475);
         // button to go back to TOC on the third page
         btnToTOCPage3 = new JButton("Table of Contents");
         btnToTOCPage3.setBounds(500, 50, 200, 70);
@@ -491,7 +406,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                     currentFrame.dispose();
                     // create the table of contents frame
                     tocFrame = new JFrame("Table of Contents");
@@ -516,7 +431,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                     currentFrame.dispose();
                     // create the chapter quiz frame
                     quizFrame = new JFrame("Chapter 1 Quiz");
@@ -538,7 +453,7 @@ public class chapter1 extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // switch to the second page when "Previous Page" is clicked
-                cardLayout.show(chapter1.this, "secondPage");
+                cardLayout.show(Chapter1Textbook.this, "secondPage");
             }
         });
         // button to go to chp summary slide (page 3)
@@ -550,7 +465,7 @@ public class chapter1 extends JPanel
             public void actionPerformed(ActionEvent e) {
                 try {
                     // close the current frame
-                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(chapter1.this);
+                    JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter1Textbook.this);
                     currentFrame.dispose();
                     // create the chapter summary frame
                     summaryFrame = new JFrame("Chapter 1 Summary");
@@ -568,6 +483,8 @@ public class chapter1 extends JPanel
         // add components to third page
         thirdPage.add(lblTitlePage3);
         thirdPage.add(lblPage3Number);
+        thirdPage.add(lblTextPage3);
+        thirdPage.add(lblSubtitlePage3);
         thirdPage.add(btnToTOCPage3);
         thirdPage.add(btnQuiz3);
         thirdPage.add(btnPrevPage2);
@@ -580,11 +497,15 @@ public class chapter1 extends JPanel
         cardLayout.show(this, "mainCard");
     }
 
-    // MARK:: remove once complete for linking purposes
+    /**
+	 * 
+	 * Temporary main function to run the chapter 1 textbook directly
+	 * 
+	 */
     public static void main(String[] args) {
         // Example of usage (main method for testing)
         JFrame frame = new JFrame("Chapter 1: Java Basics Textbook");
-        chapter1 chapter1 = new chapter1();
+        Chapter1Textbook chapter1 = new Chapter1Textbook();
 		frame.getContentPane().add(chapter1);
         frame.setSize(800, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

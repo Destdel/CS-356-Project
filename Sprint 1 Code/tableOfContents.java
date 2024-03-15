@@ -17,9 +17,12 @@ import javax.swing.text.DocumentFilter;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.Border;
 import textbooks.Chapter1Textbook;
+import textbooks.Chapter2Textbook;
 import textbooks.Chapter3Textbook;
+import textbooks.Chapter4Textbook;
+import textbooks.Chapter5Textbook;
 
-// MARK: hyperlink buttons as we go along
+// MARK:: hyperlink buttons as we go along
 
 
 /**
@@ -153,6 +156,21 @@ public class tableOfContents extends JFrame
         lblChapter2Title.setBounds(50, 165, 800, 15);
         // buttons
         btnChapter2Textbook = createTransparentButton("Textbook", 65, 183, 150, 22);
+        btnChapter2Textbook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	// close the current table of contents frame
+                dispose();
+            	// create a new JFrame for chapter 2 textbook
+                chapter2Textbook = new JFrame("Chapter 2: If-Else Statements Textbook");
+                // add the Chapter2Textbook panel to the JFrame
+                chapter2Textbook.add(new Chapter2Textbook());
+                // set frame size and make it visible
+                chapter2Textbook.setSize(800, 800);
+                chapter2Textbook.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chapter2Textbook.setVisible(true);
+            }
+        });
         btnChapter2Summary = createTransparentButton("Summary", 65, 205, 150, 22);
         btnChapter2Quiz = createTransparentButton("Quiz", 65, 227, 130, 22);
         btnChapter2Flashcards = createTransparentButton("Flashcards", 65, 249, 150, 22);
@@ -193,6 +211,21 @@ public class tableOfContents extends JFrame
         lblChapter4Title.setBounds(50, 461, 800, 15);
         // buttons
         btnChapter4Textbook = createTransparentButton("Textbook", 65, 479, 150, 22);
+        btnChapter4Textbook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	// close the current table of contents frame
+                dispose();
+            	// create a new JFrame for chapter 4 textbook
+                chapter4Textbook = new JFrame("Chapter 4: Functions Textbook");
+                // add the Chapter4Textbook panel to the JFrame
+                chapter4Textbook.add(new Chapter4Textbook());
+                // set frame size and make it visible
+                chapter4Textbook.setSize(800, 800);
+                chapter4Textbook.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chapter4Textbook.setVisible(true);
+            }
+        });
         btnChapter4Summary = createTransparentButton("Summary", 65, 501, 150, 22);
         btnChapter4CodingSnip = createTransparentButton("Coding Snippets", 65, 523, 150, 22);
         btnChapter4Quiz = createTransparentButton("Quiz", 65, 545, 130, 22);
@@ -205,6 +238,21 @@ public class tableOfContents extends JFrame
         lblChapter5Title.setBounds(50, 620, 800, 15);
         // buttons
         btnChapter5Textbook = createTransparentButton("Textbook", 65, 642, 150, 22);
+        btnChapter5Textbook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	// close the current table of contents frame
+                dispose();
+            	// create a new JFrame for chapter 5 textbook
+                chapter5Textbook = new JFrame("Chapter 1: Classes Textbook");
+                // add the Chapter5Textbook panel to the JFrame
+                chapter5Textbook.add(new Chapter5Textbook());
+                // set frame size and make it visible
+                chapter5Textbook.setSize(800, 800);
+                chapter5Textbook.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chapter5Textbook.setVisible(true);
+            }
+        });
         btnChapter5Summary = createTransparentButton("Summary", 65, 664, 150, 22);
         btnChapter5CodingSnip = createTransparentButton("Coding Snippets", 65, 686, 150, 22);
         btnChapter5Quiz = createTransparentButton("Quiz", 65, 708, 130, 22);
