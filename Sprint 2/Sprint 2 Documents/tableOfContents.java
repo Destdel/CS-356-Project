@@ -16,7 +16,11 @@ import javax.swing.text.DocumentFilter;
 
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.Border;
+import summaries.Chapter1Summary;
+import summaries.Chapter2Summary;
 import summaries.Chapter3Summary;
+import summaries.Chapter4Summary;
+import summaries.Chapter5Summary;
 import textbooks.Chapter1Textbook;
 import textbooks.Chapter2Textbook;
 import textbooks.Chapter3Textbook;
@@ -150,6 +154,22 @@ public class tableOfContents extends JFrame
         });
         // MARK: action listeners for each as we go along
         btnChapter1Summary = createTransparentButton("Summary", 65, 90, 150, 22);
+        btnChapter1Summary.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	// close the current table of contents frame
+                dispose();
+            	// create a new JFrame for chapter 2 textbook
+                chapter1Summary = new JFrame("Chapter 1: The Basics Summary");
+                // add the Chapter2Textbook panel to the JFrame
+                chapter1Summary.add(new Chapter1Summary());
+                // set frame size and make it visible
+                chapter1Summary.setSize(800, 800);
+                chapter1Summary.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chapter1Summary.setVisible(true);
+            }
+        });
+        
         btnChapter1Quiz = createTransparentButton("Quiz", 65, 112, 130, 22);
         btnChapter1Flashcards = createTransparentButton("Flashcards", 65, 134, 150, 22);
         
@@ -174,7 +194,23 @@ public class tableOfContents extends JFrame
                 chapter2Textbook.setVisible(true);
             }
         });
+        
         btnChapter2Summary = createTransparentButton("Summary", 65, 205, 150, 22);
+        btnChapter2Summary.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	// close the current table of contents frame
+                dispose();
+            	// create a new JFrame for chapter 2 textbook
+                chapter2Summary = new JFrame("Chapter 2: If-Else Statements Summary");
+                // add the Chapter2Textbook panel to the JFrame
+                chapter2Summary.add(new Chapter2Summary());
+                // set frame size and make it visible
+                chapter2Summary.setSize(800, 800);
+                chapter2Summary.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chapter2Summary.setVisible(true);
+            }
+        });
         btnChapter2Quiz = createTransparentButton("Quiz", 65, 227, 130, 22);
         btnChapter2Flashcards = createTransparentButton("Flashcards", 65, 249, 150, 22);
         btnChapter2MatchingMini = createTransparentButton("Matching Minigame", 65, 271, 200, 22);
@@ -244,7 +280,23 @@ public class tableOfContents extends JFrame
                 chapter4Textbook.setVisible(true);
             }
         });
+        
         btnChapter4Summary = createTransparentButton("Summary", 65, 501, 150, 22);
+        btnChapter4Summary.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	// close the current table of contents frame
+                dispose();
+            	// create a new JFrame for chapter 2 textbook
+                chapter4Summary = new JFrame("Chapter 4: Functions Summary");
+                // add the Chapter2Textbook panel to the JFrame
+                chapter4Summary.add(new Chapter4Summary());
+                // set frame size and make it visible
+                chapter4Summary.setSize(800, 800);
+                chapter4Summary.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chapter4Summary.setVisible(true);
+            }
+        });
         btnChapter4CodingSnip = createTransparentButton("Coding Snippets", 65, 523, 150, 22);
         btnChapter4Quiz = createTransparentButton("Quiz", 65, 545, 130, 22);
         btnChapter4Flashcards = createTransparentButton("Flashcards", 65, 567, 150, 22);
@@ -271,7 +323,23 @@ public class tableOfContents extends JFrame
                 chapter5Textbook.setVisible(true);
             }
         });
+        
         btnChapter5Summary = createTransparentButton("Summary", 65, 664, 150, 22);
+        btnChapter5Summary.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	// close the current table of contents frame
+                dispose();
+            	// create a new JFrame for chapter 2 textbook
+                chapter5Summary = new JFrame("Chapter 5: Classes Summary");
+                // add the Chapter2Textbook panel to the JFrame
+                chapter5Summary.add(new Chapter5Summary());
+                // set frame size and make it visible
+                chapter5Summary.setSize(800, 800);
+                chapter5Summary.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                chapter5Summary.setVisible(true);
+            }
+        });
         btnChapter5CodingSnip = createTransparentButton("Coding Snippets", 65, 686, 150, 22);
         btnChapter5Quiz = createTransparentButton("Quiz", 65, 708, 130, 22);
         btnChapter5Flashcards = createTransparentButton("Flashcards", 65, 730, 150, 22);
