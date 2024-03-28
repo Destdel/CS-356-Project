@@ -6,6 +6,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -76,6 +79,8 @@ public class Chapter3Textbook extends JPanel
     boolean pqPageTwo = false;			// flag used to see if the user got the practice question on page two correct
     boolean pqPageThreeMCQ = false;		// flag used to see if the user got the practice question on page three (MC) correct
     boolean pqPageThreeSA = false;		// flag used to see if the user got the practice question on page three (SA) correct
+    private boolean mcQuestionDisplayed = false;	// flag used to see if mc question displaying - if it is do not create another window
+    private boolean saQuestionDisplayed = false;	// flag used to see if sa question displaying - if it is do not create another window
     // practice question variables
     // page 1
     private JFrame practiceQuestionFramePage1;    // frame for practice question page 1
@@ -224,77 +229,93 @@ public class Chapter3Textbook extends JPanel
             @Override
             public void actionPerformed(ActionEvent e) {
                 // if practice question is already answered don't print the practice question again
-                if (!pqPageOne)
-                {    // create JFrame & JPanel for the practice question
-                    practiceQuestionFramePage1 = new JFrame("Chapter 3: Practice Question #1");
-                    practiceQuestionPanelPage1 = new JPanel(null);
-                    
-                    // change background & add border
-                    practiceQuestionPanelPage1.setBackground(new Color(200, 230, 200));
-                    practiceQuestionPanelPage1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+                if (!pqPageOne) {
+                    if (practiceQuestionFramePage1 == null || !practiceQuestionFramePage1.isVisible()) {
+                        // create JFrame & JPanel for the practice question
+                        practiceQuestionFramePage1 = new JFrame("Chapter 3: Practice Question #1");
+                        practiceQuestionPanelPage1 = new JPanel(null);
 
-                    // create text for the question
-                    lblQuestionPage1 = new JLabel("Which is a purpose for the usage of a loop?");
-                    lblQuestionPage1.setBounds(75, 50, 325, 30);
-                    lblQuestionPage1.setHorizontalAlignment(SwingConstants.CENTER);              // center the text
-                    practiceQuestionPanelPage1.add(lblQuestionPage1);
+                        // change background & add border
+                        practiceQuestionPanelPage1.setBackground(new Color(200, 230, 200));
+                        practiceQuestionPanelPage1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
-                    // create four radio buttons to hold each option
-                    rbOptionAPage1 = new JRadioButton("A: Printing and Adding Numbers");
-                    rbOptionBPage1 = new JRadioButton("B: Going through a file's contents");
-                    rbOptionCPage1 = new JRadioButton("C: Asking the user for input until they say to stop");
-                    rbOptionDPage1 = new JRadioButton("D: All of the above");
+                        // create text for the question
+                        lblQuestionPage1 = new JLabel("Which is a purpose for the usage of a loop?");
+                        lblQuestionPage1.setBounds(75, 50, 325, 30);
+                        lblQuestionPage1.setHorizontalAlignment(SwingConstants.CENTER); // center the text
+                        practiceQuestionPanelPage1.add(lblQuestionPage1);
 
-                    // set location for each radio button
-                    rbOptionAPage1.setBounds(100, 100, 300, 30);
-                    rbOptionBPage1.setBounds(100, 150, 300, 30);
-                    rbOptionCPage1.setBounds(100, 200, 300, 30);
-                    rbOptionDPage1.setBounds(100, 250, 300, 30);
+                        // create four radio buttons to hold each option
+                        rbOptionAPage1 = new JRadioButton("A: Printing and Adding Numbers");
+                        rbOptionBPage1 = new JRadioButton("B: Going through a file's contents");
+                        rbOptionCPage1 = new JRadioButton("C: Asking the user for input until they say to stop");
+                        rbOptionDPage1 = new JRadioButton("D: All of the above");
 
-                    // Create JButton to submit the answer
-                    btnSubmitPage1 = new JButton("Submit");
-                    btnSubmitPage1.setBounds(300, 350, 200, 30); // Set bounds for the submit button
-                    btnSubmitPage1.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            // check which radio button is selected & provides user with feedback if they got it right or wrong
-                            if ((!rbOptionAPage1.isSelected()) && (!rbOptionBPage1.isSelected()) && (!rbOptionCPage1.isSelected()) && (!rbOptionDPage1.isSelected())) 
-                                 JOptionPane.showMessageDialog(null, "You must select an option!");      // must enter an answer
-                            else if (rbOptionDPage1.isSelected()) {
-                                JOptionPane.showMessageDialog(null, "Correct!");                        // correct
-                                practiceQuestionFramePage1.dispose();                                    // close practice question
-                                pqPageOne = true;                                                        // set flag to true so PQ only appears once
-                                cardLayout.show(Chapter3Textbook.this, "secondPage");                    // move to the next page
+                        // set location for each radio button
+                        rbOptionAPage1.setBounds(100, 100, 300, 30);
+                        rbOptionBPage1.setBounds(100, 150, 300, 30);
+                        rbOptionCPage1.setBounds(100, 200, 300, 30);
+                        rbOptionDPage1.setBounds(100, 250, 300, 30);
+
+                        // Create JButton to submit the answer
+                        btnSubmitPage1 = new JButton("Submit");
+                        btnSubmitPage1.setBounds(300, 350, 200, 30); // Set bounds for the submit button
+                        btnSubmitPage1.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                // check which radio button is selected & provides user with feedback if they got it right or wrong
+                                if ((!rbOptionAPage1.isSelected()) && (!rbOptionBPage1.isSelected()) && (!rbOptionCPage1.isSelected()) && (!rbOptionDPage1.isSelected()))
+                                    JOptionPane.showMessageDialog(null, "You must select an option!"); // must enter an answer
+                                else if (rbOptionDPage1.isSelected()) {
+                                    JOptionPane.showMessageDialog(null, "Correct!"); // correct
+                                    practiceQuestionFramePage1.dispose(); // close practice question
+                                    pqPageOne = true; // set flag to true so PQ only appears once
+                                    cardLayout.show(Chapter3Textbook.this, "secondPage"); // move to the next page
+                                } else
+                                    JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
                             }
-                            else 
-                                JOptionPane.showMessageDialog(null, "Incorrect. Please try again.");    // incorrect
-                        }
-                    });
-                    
-                    // set bounds for submit button
-                    btnSubmitPage1.setBounds(200, 300, 100, 30);
-                    
-                    // create a ButtonGroup to connect all radio options
-                    ButtonGroup buttonGroupPage1 = new ButtonGroup();
-                    buttonGroupPage1.add(rbOptionAPage1);
-                    buttonGroupPage1.add(rbOptionBPage1);
-                    buttonGroupPage1.add(rbOptionCPage1);
-                    buttonGroupPage1.add(rbOptionDPage1);
+                        });
 
-                    // add radio buttons to the panel & practice question
-                    practiceQuestionPanelPage1.add(rbOptionAPage1);
-                    practiceQuestionPanelPage1.add(rbOptionBPage1);
-                    practiceQuestionPanelPage1.add(rbOptionCPage1);
-                    practiceQuestionPanelPage1.add(rbOptionDPage1);
-                    practiceQuestionPanelPage1.add(btnSubmitPage1);
-                    practiceQuestionFramePage1.getContentPane().add(practiceQuestionPanelPage1);
+                        // set bounds for submit button
+                        btnSubmitPage1.setBounds(200, 300, 100, 30);
 
-                    // set size of the screen & make it visible
-                    practiceQuestionFramePage1.setSize(500, 420); 
-                    practiceQuestionFramePage1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-                    practiceQuestionFramePage1.setVisible(true);
-                }
-                else    cardLayout.show(Chapter3Textbook.this, "secondPage");                     // move to the next page
+                        // create a ButtonGroup to connect all radio options
+                        ButtonGroup buttonGroupPage1 = new ButtonGroup();
+                        buttonGroupPage1.add(rbOptionAPage1);
+                        buttonGroupPage1.add(rbOptionBPage1);
+                        buttonGroupPage1.add(rbOptionCPage1);
+                        buttonGroupPage1.add(rbOptionDPage1);
+
+                        // add radio buttons to the panel & practice question
+                        practiceQuestionPanelPage1.add(rbOptionAPage1);
+                        practiceQuestionPanelPage1.add(rbOptionBPage1);
+                        practiceQuestionPanelPage1.add(rbOptionCPage1);
+                        practiceQuestionPanelPage1.add(rbOptionDPage1);
+                        practiceQuestionPanelPage1.add(btnSubmitPage1);
+                        practiceQuestionFramePage1.getContentPane().add(practiceQuestionPanelPage1);
+                        
+                        // add a window listener to enable buttons when practice question window is closed
+                        practiceQuestionFramePage1.addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosed(WindowEvent e) {
+                                btnToTOC.setEnabled(true);
+                                btnQuiz.setEnabled(true);
+                                btnSummary.setEnabled(true);
+                            }
+                        });
+
+                        // set size of the screen & make it visible
+                        practiceQuestionFramePage1.setSize(500, 420);
+                        practiceQuestionFramePage1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        practiceQuestionFramePage1.setVisible(true);
+                        
+                        // disable other buttons while practice question is displayed
+                        btnToTOC.setEnabled(false);
+                        btnQuiz.setEnabled(false);
+                        btnSummary.setEnabled(false);
+                    }
+                } else
+                    cardLayout.show(Chapter3Textbook.this, "secondPage"); // move to the next page
             }
         });
         
@@ -455,73 +476,92 @@ public class Chapter3Textbook extends JPanel
             public void actionPerformed(ActionEvent e) {
                 // Check if the practice question on page two has already been answered
                 if (!pqPageTwo) {
-                    // create JFrame & JPanel for the practice question
-                    practiceQuestionFramePage2 = new JFrame("Chapter 3: Practice Question #2");
-                    practiceQuestionPanelPage2 = new JPanel(null);
-                    
-                    // change background & add border
-                    practiceQuestionPanelPage2.setBackground(new Color(200, 230, 200));
-                    practiceQuestionPanelPage2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+                    if (practiceQuestionFramePage2 == null || !practiceQuestionFramePage2.isVisible()) {
+                        // create JFrame & JPanel for the practice question
+                        practiceQuestionFramePage2 = new JFrame("Chapter 3: Practice Question #2");
+                        practiceQuestionPanelPage2 = new JPanel(null);
 
-                    // create text for the question
-                    lblQuestionPage2 = new JLabel("What is the purpose of a for loop?");
-                    lblQuestionPage2.setBounds(75, 50, 325, 30);
-                    lblQuestionPage2.setHorizontalAlignment(SwingConstants.CENTER); // center the text
-                    practiceQuestionPanelPage2.add(lblQuestionPage2);
+                        // change background & add border
+                        practiceQuestionPanelPage2.setBackground(new Color(200, 230, 200));
+                        practiceQuestionPanelPage2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 
-                    // create four radio buttons to hold each option
-                    rbOptionAPage2 = new JRadioButton("A: Repeating code a set number of times");
-                    rbOptionBPage2 = new JRadioButton("B: Repeating code until a condition is met");
-                    rbOptionCPage2 = new JRadioButton("C: Repeating code forever");
-                    rbOptionDPage2 = new JRadioButton("D: None of the above");
+                        // create text for the question
+                        lblQuestionPage2 = new JLabel("What is the purpose of a for loop?");
+                        lblQuestionPage2.setBounds(75, 50, 325, 30);
+                        lblQuestionPage2.setHorizontalAlignment(SwingConstants.CENTER); // center the text
+                        practiceQuestionPanelPage2.add(lblQuestionPage2);
 
-                    // set location for each radio button
-                    rbOptionAPage2.setBounds(100, 100, 300, 30);
-                    rbOptionBPage2.setBounds(100, 150, 300, 30);
-                    rbOptionCPage2.setBounds(100, 200, 300, 30);
-                    rbOptionDPage2.setBounds(100, 250, 300, 30);
+                        // create four radio buttons to hold each option
+                        rbOptionAPage2 = new JRadioButton("A: Repeating code a set number of times");
+                        rbOptionBPage2 = new JRadioButton("B: Repeating code until a condition is met");
+                        rbOptionCPage2 = new JRadioButton("C: Repeating code forever");
+                        rbOptionDPage2 = new JRadioButton("D: None of the above");
 
-                    // Create JButton to submit the answer
-                    btnSubmitPage2 = new JButton("Submit");
-                    btnSubmitPage2.setBounds(300, 350, 200, 30); // Set bounds for the submit button
-                    btnSubmitPage2.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            // check which radio button is selected & provides user with feedback if they got it right or wrong
-                            if ((!rbOptionAPage2.isSelected()) && (!rbOptionBPage2.isSelected()) && (!rbOptionCPage2.isSelected()) && (!rbOptionDPage2.isSelected())) 
-                                JOptionPane.showMessageDialog(null, "You must select an option!"); // must enter an answer
-                            else if (rbOptionAPage2.isSelected()) {
-                                JOptionPane.showMessageDialog(null, "Correct!"); // correct
-                                practiceQuestionFramePage2.dispose(); // close practice question
-                                pqPageTwo = true; // set flag to true so practice question only appears once
-                                cardLayout.show(Chapter3Textbook.this, "thirdPage"); // move to the next page
-                            } else 
-                                JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
-                        }
-                    });
-                    
-                    // set bounds for submit button
-                    btnSubmitPage2.setBounds(200, 300, 100, 30);
-                    
-                    // create a ButtonGroup to connect all radio options
-                    ButtonGroup buttonGroupPage2 = new ButtonGroup();
-                    buttonGroupPage2.add(rbOptionAPage2);
-                    buttonGroupPage2.add(rbOptionBPage2);
-                    buttonGroupPage2.add(rbOptionCPage2);
-                    buttonGroupPage2.add(rbOptionDPage2);
+                        // set location for each radio button
+                        rbOptionAPage2.setBounds(100, 100, 300, 30);
+                        rbOptionBPage2.setBounds(100, 150, 300, 30);
+                        rbOptionCPage2.setBounds(100, 200, 300, 30);
+                        rbOptionDPage2.setBounds(100, 250, 300, 30);
 
-                    // add radio buttons to the panel & practice question
-                    practiceQuestionPanelPage2.add(rbOptionAPage2);
-                    practiceQuestionPanelPage2.add(rbOptionBPage2);
-                    practiceQuestionPanelPage2.add(rbOptionCPage2);
-                    practiceQuestionPanelPage2.add(rbOptionDPage2);
-                    practiceQuestionPanelPage2.add(btnSubmitPage2);
-                    practiceQuestionFramePage2.getContentPane().add(practiceQuestionPanelPage2);
+                        // Create JButton to submit the answer
+                        btnSubmitPage2 = new JButton("Submit");
+                        btnSubmitPage2.setBounds(300, 350, 200, 30); // Set bounds for the submit button
+                        btnSubmitPage2.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                // check which radio button is selected & provides user with feedback if they got it right or wrong
+                                if ((!rbOptionAPage2.isSelected()) && (!rbOptionBPage2.isSelected()) && (!rbOptionCPage2.isSelected()) && (!rbOptionDPage2.isSelected())) 
+                                    JOptionPane.showMessageDialog(null, "You must select an option!"); // must enter an answer
+                                else if (rbOptionAPage2.isSelected()) {
+                                    JOptionPane.showMessageDialog(null, "Correct!"); // correct
+                                    practiceQuestionFramePage2.dispose(); // close practice question
+                                    pqPageTwo = true; // set flag to true so practice question only appears once
+                                    cardLayout.show(Chapter3Textbook.this, "thirdPage"); // move to the next page
+                                } else 
+                                    JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
+                            }
+                        });
 
-                    // set size of the screen & make it visible
-                    practiceQuestionFramePage2.setSize(500, 420); 
-                    practiceQuestionFramePage2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-                    practiceQuestionFramePage2.setVisible(true);
+                        // set bounds for submit button
+                        btnSubmitPage2.setBounds(200, 300, 100, 30);
+
+                        // create a ButtonGroup to connect all radio options
+                        ButtonGroup buttonGroupPage2 = new ButtonGroup();
+                        buttonGroupPage2.add(rbOptionAPage2);
+                        buttonGroupPage2.add(rbOptionBPage2);
+                        buttonGroupPage2.add(rbOptionCPage2);
+                        buttonGroupPage2.add(rbOptionDPage2);
+
+                        // add radio buttons to the panel & practice question
+                        practiceQuestionPanelPage2.add(rbOptionAPage2);
+                        practiceQuestionPanelPage2.add(rbOptionBPage2);
+                        practiceQuestionPanelPage2.add(rbOptionCPage2);
+                        practiceQuestionPanelPage2.add(rbOptionDPage2);
+                        practiceQuestionPanelPage2.add(btnSubmitPage2);
+                        practiceQuestionFramePage2.getContentPane().add(practiceQuestionPanelPage2);
+                        
+                        // add a window listener to enable buttons when practice question window is closed
+                        practiceQuestionFramePage2.addWindowListener(new WindowAdapter() {
+                            @Override
+                            public void windowClosed(WindowEvent e) {
+                                btnToTOCPage2.setEnabled(true);
+                                btnQuiz2.setEnabled(true);
+                                btnSummary2.setEnabled(true);
+                                btnPrevPage.setEnabled(true);
+                            }
+                        });
+
+                        // set size of the screen & make it visible
+                        practiceQuestionFramePage2.setSize(500, 420); 
+                        practiceQuestionFramePage2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                        practiceQuestionFramePage2.setVisible(true);
+                        
+                        // disable buttons while practice question is open
+                        btnToTOCPage2.setEnabled(false);
+                        btnQuiz2.setEnabled(false);
+                        btnSummary2.setEnabled(false);
+                        btnPrevPage.setEnabled(false);
+                    }
                 } else 
                     cardLayout.show(Chapter3Textbook.this, "thirdPage"); // move to the next page
             }
@@ -691,12 +731,19 @@ public class Chapter3Textbook extends JPanel
                         // ignore this error, the program works just fine
                     }
                 } else {
-                    // Display the first multiple-choice question if not answered yet
+                    // display the first multiple-choice question if not answered yet
                     if (!pqPageThreeMCQ) {
                         DisplayMultipleChoiceQuestion();
                     } else {
                     	DisplayShortAnswerQuestion();
                     }
+                }
+                
+                // disable buttons again if practice question windows are displayed
+                if (mcQuestionDisplayed || saQuestionDisplayed) {
+                    btnToTOCPage3.setEnabled(false);
+                    btnQuiz3.setEnabled(false);
+                    btnPrevPage2.setEnabled(false);
                 }
             }
         });
@@ -724,79 +771,103 @@ public class Chapter3Textbook extends JPanel
 	 */
 	 private void DisplayMultipleChoiceQuestion() 
 	 {
-	    // create JFrame & JPanel for the multiple-choice practice question
-	    mcqFramePage3 = new JFrame("Chapter 3: Practice Question #3 Multiple Choice (1/2)");
-	    mcqPanelPage3 = new JPanel(null);
-	
-	    // change background & add border
-	    mcqPanelPage3.setBackground(new Color(200, 230, 200));
-	    mcqPanelPage3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-	
-	    // Create text for the question
-	    lblQuestionPage3 = new JLabel("What is the difference between a while loop and a do-while loop?");
-	    lblQuestionPage3.setBounds(150, 50, 400, 30);
-	    lblQuestionPage3.setHorizontalAlignment(SwingConstants.CENTER); // center the text
-	    mcqPanelPage3.add(lblQuestionPage3);
-	
-	    // create four radio buttons to hold each option
-	    rbOptionAPage3 = new JRadioButton("A: A while loop always executes at least once, while a do-while loop may not execute at all");
-	    rbOptionBPage3 = new JRadioButton("B: A while loop may not execute at all, while a do-while loop always executes at least once");
-	    rbOptionCPage3 = new JRadioButton("C: There is no difference between them");
-	    rbOptionDPage3 = new JRadioButton("D: None of the above");
-	
-	    // set location for each radio button
-	    rbOptionAPage3.setBounds(40, 100, 600, 30);
-	    rbOptionBPage3.setBounds(40, 150, 600, 30);
-	    rbOptionCPage3.setBounds(40, 200, 600, 30);
-	    rbOptionDPage3.setBounds(40, 250, 600, 30);
-	
-	    // create JButton to submit the answer
-	    btnSubmitPage3 = new JButton("Submit");
-	    btnSubmitPage3.setBounds(250, 300, 200, 30); // Set bounds for the submit button
-	    btnSubmitPage3.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // check which radio button is selected & provide user with feedback if they got it right or wrong
-	            if ((!rbOptionAPage3.isSelected()) && (!rbOptionBPage3.isSelected()) && (!rbOptionCPage3.isSelected()) && (!rbOptionDPage3.isSelected())) {
-	                JOptionPane.showMessageDialog(null, "You must select an option!"); // Must enter an answer
-	            } else if (rbOptionBPage3.isSelected()) {
-	                JOptionPane.showMessageDialog(null, "Correct!"); // correct
-	                mcqFramePage3.dispose();                            // close mc practice question
-	                pqPageThreeMCQ = true;                               // see flag since mc question was answered correctly
-	
-	                // display the short answer question
-	                DisplayShortAnswerQuestion();
-	            } else {
-	                JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
-	            }
-	        }
-	    });
-	    
-	    // question number text
-	    lblQuestion1Number = new JLabel("(1/2)");
-	    lblQuestion1Number.setHorizontalAlignment(SwingConstants.CENTER); 
-	    lblQuestion1Number.setBounds(250, 330, 200, 40);
-	    mcqPanelPage3.add(lblQuestion1Number);
-	
-	    // create a ButtonGroup to connect all radio options
-	    ButtonGroup buttonGroupPage3 = new ButtonGroup();
-	    buttonGroupPage3.add(rbOptionAPage3);
-	    buttonGroupPage3.add(rbOptionBPage3);
-	    buttonGroupPage3.add(rbOptionCPage3);
-	    buttonGroupPage3.add(rbOptionDPage3);
-	
-	    // add radio buttons to the panel & practice question
-	    mcqPanelPage3.add(rbOptionAPage3);
-	    mcqPanelPage3.add(rbOptionBPage3);
-	    mcqPanelPage3.add(rbOptionCPage3);
-	    mcqPanelPage3.add(rbOptionDPage3);
-	    mcqPanelPage3.add(btnSubmitPage3);
-	    mcqFramePage3.getContentPane().add(mcqPanelPage3);
-	
-	    // set size of the screen & make it visible
-	    mcqFramePage3.setSize(700, 405);
-	    mcqFramePage3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	    mcqFramePage3.setVisible(true);
+		// allow practice question screen to only display once
+		if (!mcQuestionDisplayed)
+		{	mcQuestionDisplayed = true;			// set flag
+		
+		    // create JFrame & JPanel for the multiple-choice practice question
+		    mcqFramePage3 = new JFrame("Chapter 3: Practice Question #3 Multiple Choice (1/2)");
+		    mcqPanelPage3 = new JPanel(null);
+		
+		    // change background & add border
+		    mcqPanelPage3.setBackground(new Color(200, 230, 200));
+		    mcqPanelPage3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		
+		    // Create text for the question
+		    lblQuestionPage3 = new JLabel("What is the difference between a while loop and a do-while loop?");
+		    lblQuestionPage3.setBounds(150, 50, 400, 30);
+		    lblQuestionPage3.setHorizontalAlignment(SwingConstants.CENTER); // center the text
+		    mcqPanelPage3.add(lblQuestionPage3);
+		
+		    // create four radio buttons to hold each option
+		    rbOptionAPage3 = new JRadioButton("A: A while loop always executes at least once, while a do-while loop may not execute at all");
+		    rbOptionBPage3 = new JRadioButton("B: A while loop may not execute at all, while a do-while loop always executes at least once");
+		    rbOptionCPage3 = new JRadioButton("C: There is no difference between them");
+		    rbOptionDPage3 = new JRadioButton("D: None of the above");
+		
+		    // set location for each radio button
+		    rbOptionAPage3.setBounds(40, 100, 600, 30);
+		    rbOptionBPage3.setBounds(40, 150, 600, 30);
+		    rbOptionCPage3.setBounds(40, 200, 600, 30);
+		    rbOptionDPage3.setBounds(40, 250, 600, 30);
+		
+		    // create JButton to submit the answer
+		    btnSubmitPage3 = new JButton("Submit");
+		    btnSubmitPage3.setBounds(250, 300, 200, 30); // Set bounds for the submit button
+		    btnSubmitPage3.addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            // check which radio button is selected & provide user with feedback if they got it right or wrong
+		            if ((!rbOptionAPage3.isSelected()) && (!rbOptionBPage3.isSelected()) && (!rbOptionCPage3.isSelected()) && (!rbOptionDPage3.isSelected())) {
+		                JOptionPane.showMessageDialog(null, "You must select an option!"); // Must enter an answer
+		            } else if (rbOptionBPage3.isSelected()) {
+		                JOptionPane.showMessageDialog(null, "Correct!"); // correct
+		                mcqFramePage3.dispose();                            // close mc practice question
+		                pqPageThreeMCQ = true;                               // see flag since mc question was answered correctly
+		
+		                // display the short answer question
+		                DisplayShortAnswerQuestion();
+		            } else {
+		                JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
+		            }
+		        }
+		    });
+		    
+		    // question number text
+		    lblQuestion1Number = new JLabel("(1/2)");
+		    lblQuestion1Number.setHorizontalAlignment(SwingConstants.CENTER); 
+		    lblQuestion1Number.setBounds(250, 330, 200, 40);
+		    mcqPanelPage3.add(lblQuestion1Number);
+		
+		    // create a ButtonGroup to connect all radio options
+		    ButtonGroup buttonGroupPage3 = new ButtonGroup();
+		    buttonGroupPage3.add(rbOptionAPage3);
+		    buttonGroupPage3.add(rbOptionBPage3);
+		    buttonGroupPage3.add(rbOptionCPage3);
+		    buttonGroupPage3.add(rbOptionDPage3);
+		
+		    // add radio buttons to the panel & practice question
+		    mcqPanelPage3.add(rbOptionAPage3);
+		    mcqPanelPage3.add(rbOptionBPage3);
+		    mcqPanelPage3.add(rbOptionCPage3);
+		    mcqPanelPage3.add(rbOptionDPage3);
+		    mcqPanelPage3.add(btnSubmitPage3);
+		    mcqFramePage3.getContentPane().add(mcqPanelPage3);
+		    
+		    // add a window listener to enable buttons when practice question window is closed
+		    mcqFramePage3.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    if (!pqPageThreeMCQ)
+                    {	btnToTOCPage3.setEnabled(true);
+                    	btnQuiz3.setEnabled(true);
+                    	btnPrevPage2.setEnabled(true);
+                    	// reset flag to allow reloading of the MCQ practice question
+                    	mcQuestionDisplayed = false;
+                    }
+                }
+            });
+		
+		    // set size of the screen & make it visible
+		    mcqFramePage3.setSize(700, 405);
+		    mcqFramePage3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		    mcqFramePage3.setVisible(true);
+		    
+		    // disable other buttons when practice question is open
+		    btnToTOCPage3.setEnabled(false);
+            btnQuiz3.setEnabled(false);
+            btnPrevPage2.setEnabled(false);
+		}
 	}
 	
 	/**
@@ -804,113 +875,136 @@ public class Chapter3Textbook extends JPanel
 	 */
 	private void DisplayShortAnswerQuestion() 
 	{
-	    // reset the flag for the short answer question - in the case if the SA question is closed when MC was answered correctly
-	    pqPageThreeSA = false;
-	
-	    // create JFrame & JPanel for the short answer practice question
-	    shortAnswerFramePage3 = new JFrame("Chapter 3: Practice Question #3 Short Answer (2/2)");
-	    shortAnswerPanelPage3 = new JPanel(null);
-	
-	    // change background & add border
-	    shortAnswerPanelPage3.setBackground(new Color(200, 230, 200));
-	    shortAnswerPanelPage3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-	
-	    // create text for the question
-	    lblQuestionShortAnswerPage3 = new JLabel("What keyword is used to terminate a loop?");
-	    lblQuestionShortAnswerPage3.setBounds(50, 50, 400, 30);
-	    lblQuestionShortAnswerPage3.setHorizontalAlignment(SwingConstants.CENTER);     // center the text
-	    shortAnswerPanelPage3.add(lblQuestionShortAnswerPage3);
-	
-	    // create JTextField for user input
-	    answerTextFieldPage3 = new JTextField();
-	    answerTextFieldPage3.setBounds(150, 100, 200, 30);
-	    shortAnswerPanelPage3.add(answerTextFieldPage3);
-	    
-	    // allow the user to use the enter key to answer the question
-	    answerTextFieldPage3.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // check the user's answer & provide feedback
-	            String userAnswer = answerTextFieldPage3.getText().trim().toLowerCase(); 	// convert to lowercase
-	            if (userAnswer.equals("break")) {
-	                JOptionPane.showMessageDialog(null, "Correct!");	 // correct
-	                shortAnswerFramePage3.dispose(); 					// close SA practice question
-	                pqPageThreeSA = true; 								// set SA flag to true
-
-	                // move to the chapter summary slide if both questions were answered correctly
-	                if (pqPageThreeMCQ && pqPageThreeSA) {
-	                    // move to the chapter summary slide
-	                    try {
-	                        // close the current frame
-	                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
-	                        currentFrame.dispose();
-	                        // create the chapter summary frame
-	                        JFrame summaryFrame = new JFrame("Chapter 3 Summary");
-	                        JPanel summaryPanel = new Chapter3Summary();
-	                        summaryFrame.getContentPane().add(summaryPanel);
-	                        summaryFrame.setSize(800, 800);
-	                        summaryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	                        summaryFrame.setVisible(true);
-	                    } catch (IllegalArgumentException ex) {
-	                        // ignore this error, the program works just fine
-	                    }
-	                } else {
-	                    JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
-	                }
-	            }
-	        }
-	    });
-	
-	    // create JButton to submit the answer
-	    btnSubmitShortAnswerPage3 = new JButton("Submit");
-	    btnSubmitShortAnswerPage3.setBounds(200, 150, 100, 30);                           // set bounds for the submit button
-	    btnSubmitShortAnswerPage3.addActionListener(new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            // check the user's answer & provide feedback
-	            String userAnswer = answerTextFieldPage3.getText().trim().toLowerCase();      // convert answer to lowercase - to not make case sensitive
-	            if (userAnswer.equals("break")) 
-	            {
-	                JOptionPane.showMessageDialog(null, "Correct!"); // correct
-	                shortAnswerFramePage3.dispose();                   // close SA practice question
-	                pqPageThreeSA = true;                              // set SA flag to true
-	
-	                // move to the chapter summary slide if both questions were answered correctly
-	                if (pqPageThreeMCQ && pqPageThreeSA) 
-	                {	// move to the chapter summary slide
-	                    try 
-	                    {
-	                        // close the current frame
-	                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
-	                        currentFrame.dispose();
-	                        // create the chapter summary frame
-	                        JFrame summaryFrame = new JFrame("Chapter 3 Summary");
-	                        JPanel summaryPanel = new Chapter3Summary();
-	                        summaryFrame.getContentPane().add(summaryPanel);
-	                        summaryFrame.setSize(800, 800);
-	                        summaryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	                        summaryFrame.setVisible(true);
-	                    } catch (IllegalArgumentException ex) {
-	                        // ignore this error, the program works just fine
-	                    }
-	                } else 
-	                    JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
-	            }
-	        }  
-	    });
-	    shortAnswerPanelPage3.add(btnSubmitShortAnswerPage3);
+		// only allow screen to display once
+		if (!saQuestionDisplayed) 
+		{	// disable buttons when the short answer question is displayed
+		    btnToTOCPage3.setEnabled(false);
+		    btnQuiz3.setEnabled(false);
+		    btnPrevPage2.setEnabled(false);
+			
+			saQuestionDisplayed = true;			// set flag
 	        
-	    // question number text
-	    lblQuestion2Number = new JLabel("(2/2)");
-	    lblQuestion2Number.setHorizontalAlignment(SwingConstants.CENTER); 
-	    lblQuestion2Number.setBounds(200, 180, 100, 40);
-	    shortAnswerPanelPage3.add(lblQuestion2Number);
-
-	    // set size of the screen & make it visible
-	    shortAnswerFramePage3.getContentPane().add(shortAnswerPanelPage3);
-	    shortAnswerFramePage3.setSize(500, 255);
-	    shortAnswerFramePage3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
-	    shortAnswerFramePage3.setVisible(true);
+		    // reset the flag for the short answer question - in the case if the SA question is closed when MC was answered correctly
+		    pqPageThreeSA = false;
+		
+		    // create JFrame & JPanel for the short answer practice question
+		    shortAnswerFramePage3 = new JFrame("Chapter 3: Practice Question #3 Short Answer (2/2)");
+		    shortAnswerPanelPage3 = new JPanel(null);
+		
+		    // change background & add border
+		    shortAnswerPanelPage3.setBackground(new Color(200, 230, 200));
+		    shortAnswerPanelPage3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		
+		    // create text for the question
+		    lblQuestionShortAnswerPage3 = new JLabel("What keyword is used to terminate a loop?");
+		    lblQuestionShortAnswerPage3.setBounds(50, 50, 400, 30);
+		    lblQuestionShortAnswerPage3.setHorizontalAlignment(SwingConstants.CENTER);     // center the text
+		    shortAnswerPanelPage3.add(lblQuestionShortAnswerPage3);
+		
+		    // create JTextField for user input
+		    answerTextFieldPage3 = new JTextField();
+		    answerTextFieldPage3.setBounds(150, 100, 200, 30);
+		    shortAnswerPanelPage3.add(answerTextFieldPage3);
+		    
+		    // allow the user to use the enter key to answer the question
+		    answerTextFieldPage3.addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            // check the user's answer & provide feedback
+		            String userAnswer = answerTextFieldPage3.getText().trim().toLowerCase(); 	// convert to lowercase
+		            if (userAnswer.equals("break")) {
+		                JOptionPane.showMessageDialog(null, "Correct!");	 // correct
+		                shortAnswerFramePage3.dispose(); 					// close SA practice question
+		                pqPageThreeSA = true; 								// set SA flag to true
+	
+		                // move to the chapter summary slide if both questions were answered correctly
+		                if (pqPageThreeMCQ && pqPageThreeSA) {
+		                    // move to the chapter summary slide
+		                    try {
+		                        // close the current frame
+		                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+		                        currentFrame.dispose();
+		                        // create the chapter summary frame
+		                        JFrame summaryFrame = new JFrame("Chapter 3 Summary");
+		                        JPanel summaryPanel = new Chapter3Summary();
+		                        summaryFrame.getContentPane().add(summaryPanel);
+		                        summaryFrame.setSize(800, 800);
+		                        summaryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                        summaryFrame.setVisible(true);
+		                    } catch (IllegalArgumentException ex) {
+		                        // ignore this error, the program works just fine
+		                    }
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
+		                }
+		            }
+		        }
+		    });
+		
+		    // create JButton to submit the answer
+		    btnSubmitShortAnswerPage3 = new JButton("Submit");
+		    btnSubmitShortAnswerPage3.setBounds(200, 150, 100, 30);                           // set bounds for the submit button
+		    btnSubmitShortAnswerPage3.addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            // check the user's answer & provide feedback
+		            String userAnswer = answerTextFieldPage3.getText().trim().toLowerCase();      // convert answer to lowercase - to not make case sensitive
+		            if (userAnswer.equals("break")) 
+		            {
+		                JOptionPane.showMessageDialog(null, "Correct!"); // correct
+		                shortAnswerFramePage3.dispose();                   // close SA practice question
+		                pqPageThreeSA = true;                              // set SA flag to true
+		
+		                // move to the chapter summary slide if both questions were answered correctly
+		                if (pqPageThreeMCQ && pqPageThreeSA) 
+		                {	// move to the chapter summary slide
+		                    try 
+		                    {
+		                        // close the current frame
+		                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter3Textbook.this);
+		                        currentFrame.dispose();
+		                        // create the chapter summary frame
+		                        JFrame summaryFrame = new JFrame("Chapter 3 Summary");
+		                        JPanel summaryPanel = new Chapter3Summary();
+		                        summaryFrame.getContentPane().add(summaryPanel);
+		                        summaryFrame.setSize(800, 800);
+		                        summaryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                        summaryFrame.setVisible(true);
+		                    } catch (IllegalArgumentException ex) {
+		                        // ignore this error, the program works just fine
+		                    }
+		                } else 
+		                    JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
+		            }
+		        }  
+		    });
+		    shortAnswerPanelPage3.add(btnSubmitShortAnswerPage3);
+		        
+		    // question number text
+		    lblQuestion2Number = new JLabel("(2/2)");
+		    lblQuestion2Number.setHorizontalAlignment(SwingConstants.CENTER); 
+		    lblQuestion2Number.setBounds(200, 180, 100, 40);
+		    shortAnswerPanelPage3.add(lblQuestion2Number);
+		    
+		    // add a window listener to enable buttons when practice question window is closed
+		    shortAnswerFramePage3.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    btnToTOCPage3.setEnabled(true);
+                    btnQuiz3.setEnabled(true);
+                    btnPrevPage2.setEnabled(true);
+                    // reset flag to allow reloading of the SA practice question
+                    saQuestionDisplayed = false;
+                }
+            });
+	
+		    // set size of the screen & make it visible
+		    shortAnswerFramePage3.getContentPane().add(shortAnswerPanelPage3);
+		    shortAnswerFramePage3.setSize(500, 255);
+		    shortAnswerFramePage3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
+		    shortAnswerFramePage3.setVisible(true);
+		    
+		}
 	}
 
 
