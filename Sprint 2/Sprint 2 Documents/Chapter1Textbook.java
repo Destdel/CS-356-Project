@@ -399,8 +399,8 @@ public class Chapter1Textbook extends JPanel
         	    + "- short: 16-bit, -32,768 to 32,767.<br>"
         	    + "- int: 32-bit, -2^31 to 2^31 - 1.<br>"
         	    + "- long: 64-bit, -2^63 to 2^63 - 1.<br>"
-        	    + "- float: 32-bit, ±3.40282347E+38F.<br>"
-        	    + "- double: 64-bit, ±1.79769313486231570E+308.<br>"
+        	    + "- float: 32-bit, Â±3.40282347E+38F.<br>"
+        	    + "- double: 64-bit, Â±1.79769313486231570E+308.<br>"
         	    + "- char: 16-bit Unicode.<br>"
         	    + "- boolean: true or false.<br><br>"
         	    + "<b>Reference Data Types:</b><br>"
@@ -516,7 +516,248 @@ public class Chapter1Textbook extends JPanel
         // show page 1 one as the "maincard" (default)
         cardLayout.show(this, "mainCard");
     }
-
+    
+    /**
+	 * Function used to display the multiple choice question on page 3 (1/2)
+	 *
+	 */
+	 private void DisplayMultipleChoiceQuestion() 
+	 {
+		// allow practice question screen to only display once
+		if (!mcQuestionDisplayed)
+		{	mcQuestionDisplayed = true;			// set flag
+		
+		    // create JFrame & JPanel for the multiple-choice practice question
+		    mcqFramePage3 = new JFrame("Chapter 1: Practice Question #3 Multiple Choice (1/2)");
+		    mcqPanelPage3 = new JPanel(null);
+		
+		    // change background & add border
+		    mcqPanelPage3.setBackground(new Color(200, 230, 200));
+		    mcqPanelPage3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		
+		    // Create text for the question
+		    lblQuestionPage3 = new JLabel("Which of the following is a correct statement about Java syntax and structure?");
+		    lblQuestionPage3.setBounds(150, 50, 400, 30);
+		    lblQuestionPage3.setHorizontalAlignment(SwingConstants.CENTER); // center the text
+		    mcqPanelPage3.add(lblQuestionPage3);
+		
+		    // create four radio buttons to hold each option
+		    rbOptionAPage3 = new JRadioButton("A: Java uses curly braces ({}) to denote comments");
+		    rbOptionBPage3 = new JRadioButton("B: The main method in a Java program is declared using the keyword "void"");
+		    rbOptionCPage3 = new JRadioButton("C: Java identifiers can start with a digit");
+		    rbOptionDPage3 = new JRadioButton("D: Java supports single-line comments using the "//" symbol");
+		
+		    // set location for each radio button
+		    rbOptionAPage3.setBounds(40, 100, 600, 30);
+		    rbOptionBPage3.setBounds(40, 150, 600, 30);
+		    rbOptionCPage3.setBounds(40, 200, 600, 30);
+		    rbOptionDPage3.setBounds(40, 250, 600, 30);
+		
+		    // create JButton to submit the answer
+		    btnSubmitPage3 = new JButton("Submit");
+		    btnSubmitPage3.setBounds(250, 300, 200, 30); // Set bounds for the submit button
+		    btnSubmitPage3.addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            // check which radio button is selected & provide user with feedback if they got it right or wrong
+		            if ((!rbOptionAPage3.isSelected()) && (!rbOptionBPage3.isSelected()) && (!rbOptionCPage3.isSelected()) && (!rbOptionDPage3.isSelected())) {
+		                JOptionPane.showMessageDialog(null, "You must select an option!"); // Must enter an answer
+		            } else if (rbOptionBPage3.isSelected()) {
+		                JOptionPane.showMessageDialog(null, "Correct!"); // correct
+		                mcqFramePage3.dispose();                            // close mc practice question
+		                pqPageThreeMCQ = true;                               // see flag since mc question was answered correctly
+		
+		                // display the short answer question
+		                DisplayShortAnswerQuestion();
+		            } else {
+		                JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
+		            }
+		        }
+		    });
+		    
+		    // question number text
+		    lblQuestion1Number = new JLabel("(1/2)");
+		    lblQuestion1Number.setHorizontalAlignment(SwingConstants.CENTER); 
+		    lblQuestion1Number.setBounds(250, 330, 200, 40);
+		    mcqPanelPage3.add(lblQuestion1Number);
+		
+		    // create a ButtonGroup to connect all radio options
+		    ButtonGroup buttonGroupPage3 = new ButtonGroup();
+		    buttonGroupPage3.add(rbOptionAPage3);
+		    buttonGroupPage3.add(rbOptionBPage3);
+		    buttonGroupPage3.add(rbOptionCPage3);
+		    buttonGroupPage3.add(rbOptionDPage3);
+		
+		    // add radio buttons to the panel & practice question
+		    mcqPanelPage3.add(rbOptionAPage3);
+		    mcqPanelPage3.add(rbOptionBPage3);
+		    mcqPanelPage3.add(rbOptionCPage3);
+		    mcqPanelPage3.add(rbOptionDPage3);
+		    mcqPanelPage3.add(btnSubmitPage3);
+		    mcqFramePage3.getContentPane().add(mcqPanelPage3);
+		    
+		    // add a window listener to enable buttons when practice question window is closed
+		    mcqFramePage3.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    if (!pqPageThreeMCQ)
+                    {	btnToTOCPage3.setEnabled(true);
+                    	btnQuiz3.setEnabled(true);
+                    	btnPrevPage2.setEnabled(true);
+                    	// reset flag to allow reloading of the MCQ practice question
+                    	mcQuestionDisplayed = false;
+                    }
+                }
+            });
+		
+		    // set size of the screen & make it visible
+		    mcqFramePage3.setSize(700, 405);
+		    mcqFramePage3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		    mcqFramePage3.setVisible(true);
+		    
+		    // disable other buttons when practice question is open
+		    btnToTOCPage3.setEnabled(false);
+            btnQuiz3.setEnabled(false);
+            btnPrevPage2.setEnabled(false);
+		}
+	}
+	
+	/**
+	 * Function used to display the short answer question on page 3 (2/2)
+	 */
+	private void DisplayShortAnswerQuestion() 
+	{
+		// only allow screen to display once
+		if (!saQuestionDisplayed) 
+		{	// disable buttons when the short answer question is displayed
+		    btnToTOCPage3.setEnabled(false);
+		    btnQuiz3.setEnabled(false);
+		    btnPrevPage2.setEnabled(false);
+			
+			saQuestionDisplayed = true;			// set flag
+	        
+		    // reset the flag for the short answer question - in the case if the SA question is closed when MC was answered correctly
+		    pqPageThreeSA = false;
+		
+		    // create JFrame & JPanel for the short answer practice question
+		    shortAnswerFramePage3 = new JFrame("Chapter 1: Practice Question #3 Short Answer (2/2)");
+		    shortAnswerPanelPage3 = new JPanel(null);
+		
+		    // change background & add border
+		    shortAnswerPanelPage3.setBackground(new Color(200, 230, 200));
+		    shortAnswerPanelPage3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		
+		    // create text for the question
+		    lblQuestionShortAnswerPage3 = new JLabel("");
+		    lblQuestionShortAnswerPage3.setBounds(50, 50, 400, 30);
+		    lblQuestionShortAnswerPage3.setHorizontalAlignment(SwingConstants.CENTER);     // center the text
+		    shortAnswerPanelPage3.add(lblQuestionShortAnswerPage3);
+		
+		    // create JTextField for user input
+		    answerTextFieldPage3 = new JTextField();
+		    answerTextFieldPage3.setBounds(150, 100, 200, 30);
+		    shortAnswerPanelPage3.add(answerTextFieldPage3);
+		    
+		    // allow the user to use the enter key to answer the question
+		    answerTextFieldPage3.addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            // check the user's answer & provide feedback
+		            String userAnswer = answerTextFieldPage3.getText().trim().toLowerCase(); 	// convert to lowercase
+		            if (userAnswer.equals("complex")) {
+		                JOptionPane.showMessageDialog(null, "Correct!");	 // correct
+		                shortAnswerFramePage3.dispose(); 					// close SA practice question
+		                pqPageThreeSA = true; 								// set SA flag to true
+	
+		                // move to the chapter summary slide if both questions were answered correctly
+		                if (pqPageThreeMCQ && pqPageThreeSA) {
+		                    // move to the chapter summary slide
+		                    try {
+		                        // close the current frame
+		                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
+		                        currentFrame.dispose();
+		                        // create the chapter summary frame
+		                        JFrame summaryFrame = new JFrame("Chapter 2 Summary");
+		                        JPanel summaryPanel = new Chapter2Summary();
+		                        summaryFrame.getContentPane().add(summaryPanel);
+		                        summaryFrame.setSize(800, 800);
+		                        summaryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                        summaryFrame.setVisible(true);
+		                    } catch (IllegalArgumentException ex) {
+		                        // ignore this error, the program works just fine
+		                    }
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
+		                }
+		            }
+		        }
+		    });
+		
+		    // create JButton to submit the answer
+		    btnSubmitShortAnswerPage3 = new JButton("Submit");
+		    btnSubmitShortAnswerPage3.setBounds(200, 150, 100, 30);                           // set bounds for the submit button
+		    btnSubmitShortAnswerPage3.addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		            // check the user's answer & provide feedback
+		            String userAnswer = answerTextFieldPage3.getText().trim().toLowerCase();      // convert answer to lowercase - to not make case sensitive
+		            if (userAnswer.equals("break")) 
+		            {
+		                JOptionPane.showMessageDialog(null, "Correct!"); // correct
+		                shortAnswerFramePage3.dispose();                   // close SA practice question
+		                pqPageThreeSA = true;                              // set SA flag to true
+		
+		                // move to the chapter summary slide if both questions were answered correctly
+		                if (pqPageThreeMCQ && pqPageThreeSA) 
+		                {	// move to the chapter summary slide
+		                    try 
+		                    {
+		                        // close the current frame
+		                        JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(Chapter2Textbook.this);
+		                        currentFrame.dispose();
+		                        // create the chapter summary frame
+		                        JFrame summaryFrame = new JFrame("Chapter 2 Summary");
+		                        JPanel summaryPanel = new Chapter2Summary();
+		                        summaryFrame.getContentPane().add(summaryPanel);
+		                        summaryFrame.setSize(800, 800);
+		                        summaryFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		                        summaryFrame.setVisible(true);
+		                    } catch (IllegalArgumentException ex) {
+		                        // ignore this error, the program works just fine
+		                    }
+		                } else 
+		                    JOptionPane.showMessageDialog(null, "Incorrect. Please try again."); // incorrect
+		            }
+		        }  
+		    });
+		    shortAnswerPanelPage3.add(btnSubmitShortAnswerPage3);
+		        
+		    // question number text
+		    lblQuestion2Number = new JLabel("(2/2)");
+		    lblQuestion2Number.setHorizontalAlignment(SwingConstants.CENTER); 
+		    lblQuestion2Number.setBounds(200, 180, 100, 40);
+		    shortAnswerPanelPage3.add(lblQuestion2Number);
+		    
+		    // add a window listener to enable buttons when practice question window is closed
+		    shortAnswerFramePage3.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    btnToTOCPage3.setEnabled(true);
+                    btnQuiz3.setEnabled(true);
+                    btnPrevPage2.setEnabled(true);
+                    // reset flag to allow reloading of the SA practice question
+                    saQuestionDisplayed = false;
+                }
+            });
+	
+		    // set size of the screen & make it visible
+		    shortAnswerFramePage3.getContentPane().add(shortAnswerPanelPage3);
+		    shortAnswerFramePage3.setSize(500, 255);
+		    shortAnswerFramePage3.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
+		    shortAnswerFramePage3.setVisible(true);
+		    
+		}
+	}
     /**
 	 * 
 	 * Temporary main function to run the chapter 1 textbook directly
